@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloudwaer.mapper.BlogArticleMapper">
+    <!--实体映射-->
+    <resultMap id="BaseResultMap" type="com.cloudwaer.dto.ArticleRespDto">
+        <result property="articleUniqueCode" column="ARTICLE_UNIQUE_CODE"></result>
+        <result property="articleTitle" column="ARTICLE_TITLE"></result>
+        <result property="articleImage" column="ARTICLE_IMAGE"></result>
+        <result property="articleContent" column="ARTICLE_CONTENT"></result>
+        <result property="articleTags" column="ARTICLE_TAGS"></result>
+        <result property="articleEnableComment" column="ARTICLE_ENABLE_COMMENT"></result>
+        <result property="articleViews" column="ARTICLE_VIEWS"></result>
+        <result property="articleCreatetime" column="ARTICLE_CREATETIME"></result>
+        <result property="articleDelflag" column="ARTICLE_DELFLAG"></result>
+        <result property="articleUpdatetim" column="ARTICLE_UPDATETIM"></result>
+        <result property="articleCreatecode" column="ARTICLE_CREATECODE"></result>
+        <result property="articleUpdatecode" column="ARTICLE_UPDATECODE"></result>
+        <result property="articleHot" column="ARTICLE_HOT"></result>
+        <result property="articleOrder" column="ARTICLE_ORDER"></result>
+        <result property="catrgoryCode" column="CATRGORY_CODE"></result>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+         ID ,ARTICLE_UNIQUE_CODE ,ARTICLE_TITLE ,ARTICLE_IMAGE ,ARTICLE_CONTENT ,ARTICLE_TAGS ,ARTICLE_ENABLE_COMMENT ,ARTICLE_VIEWS ,ARTICLE_CREATETIME ,ARTICLE_DELFLAG ,ARTICLE_UPDATETIM ,ARTICLE_CREATECODE ,ARTICLE_UPDATECODE ,ARTICLE_HOT ,ARTICLE_ORDER ,CATRGORY_CODE
+    </sql>
+
+    <select id="queryArticleList" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            blog_article
+    </select>
+    <select id="queryArticleCount" resultType="java.lang.Integer">
+        select count(1) from  blog_article
+    </select>
+</mapper>

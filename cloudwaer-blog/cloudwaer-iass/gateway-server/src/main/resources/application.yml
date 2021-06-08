@@ -25,3 +25,5 @@ spring:
             - Path=/test
           filters:
             - StripPrefix=1 # 当前端访问/user/login - >login 将user自动的去掉
+    sentinel:
+      datasource:

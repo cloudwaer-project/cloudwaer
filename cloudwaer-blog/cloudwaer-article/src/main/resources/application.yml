@@ -1,0 +1,22 @@
+server:
+  port: 9998
+
+spring:
+  application:
+    name: cloud-article
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.135.147:8848
+  redis:
+    host: 8.140.135.147
+    port: 6380
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://8.140.135.147:3306/cloudwear?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+mybatis-plus:
+  mapper-locations: classpath:**/mapper/xml/*.xml

@@ -11,6 +11,7 @@
     <modules>
         <module>cloudwaer-iass</module>
         <module>cloudwaer-common</module>
+        <module>cloudwaer-article</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
