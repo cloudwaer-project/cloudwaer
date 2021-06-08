@@ -39,8 +39,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Override
     public PageModel queryArticleList(ArticleReqDto articleReqDto) {
         //校验是否传入当前页
-        String params[] = {"current", "pageSize"};
-        ParamUtils.isParamsNotNull(articleReqDto, params);
+        ParamUtils.isParamsNotNull(articleReqDto, "current", "pageSize");
         //计算出分页开始位置
         if (0 <= articleReqDto.getCurrent()) {
             articleReqDto.setCurrent(1);

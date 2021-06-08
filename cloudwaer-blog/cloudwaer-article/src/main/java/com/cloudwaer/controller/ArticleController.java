@@ -35,7 +35,9 @@ public class ArticleController {
     @RequestMapping("/queryArticleList")
     public ResponseDto queryArticleList(ArticleReqDto articleReqDto) {
         try {
+            logger.info("查询文章列表接口入参:{}", articleReqDto);
             PageModel articleRespDtos = blogArticleService.queryArticleList(articleReqDto);
+            logger.info("查询文章列表接口反参:{}", articleRespDtos);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.SUCCESS, articleRespDtos);
         } catch (ParamsException pe) {
             logger.info("查询文章列表接口参数异常:{}", pe);
