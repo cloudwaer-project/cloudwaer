@@ -1,5 +1,8 @@
 package com.cloudwaer.common.dto;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * @ClassName PageVo
  * @Description TODO
@@ -7,6 +10,8 @@ package com.cloudwaer.common.dto;
  * @Date 2021/6/7 11:40
  * @Version 1.0
  **/
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PageVo {
     //当前页
     private int current;
@@ -15,44 +20,4 @@ public class PageVo {
     private int start;
     private int end;
     private String sortOrder;
-
-    public int getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(int current) {
-        this.current = current;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
-    }
-
-    public String getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(String sortOrder) {
-        this.sortOrder = sortOrder;
-    }
 }
