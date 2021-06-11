@@ -56,7 +56,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .refreshTokenValiditySeconds(30 * 24 * 3600) //refresh token 一个月过期
                 .and()
                 .withClient("inside-app")
-                .secret(passwordEncoder.encode("onside-app"))
+                .secret(passwordEncoder.encode("inside-secret"))
                 .scopes("all")
                 .accessTokenValiditySeconds(7 * 24 * 3600);
         super.configure(clients);
