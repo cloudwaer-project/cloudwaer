@@ -1,6 +1,7 @@
 package com.cloudwaer.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloudwaer.config.GatewayUrlConfig;
 import com.google.common.net.HttpHeaders;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
     private StringRedisTemplate redisTemplate;
 
     /**
-     * 默认放行登录接口
+     * 放行的接口
      */
-    @Value("${no.require.urls:/admin/login}")
-    private Set<String> noRequiredTokenUris;
+    @Autowired
+    private GatewayUrlConfig gatewayUrlConfig;
 
 
     @Override
@@ -94,6 +95,7 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
      */
     private boolean isRequiredToken(ServerWebExchange exchange) {
         String path = exchange.getRequest().getURI().getPath();
+        Set<String> noRequiredTokenUris = gatewayUrlConfig.getUrls();
         if (noRequiredTokenUris.contains(path)) {
             return false; //不需要token返回false
         }

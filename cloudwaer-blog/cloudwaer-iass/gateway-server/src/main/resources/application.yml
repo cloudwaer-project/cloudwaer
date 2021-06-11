@@ -12,7 +12,7 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true # admin-service ADMIN-SERVICE  /admin-service/** -> 微服务（ADMIN-SERVICE）
-      routes:
+      routes:  # 路由配置
         - id: admin-service_router
           uri: lb://admin-service   # 转发到那个目的地
           predicates:
@@ -25,14 +25,15 @@ spring:
             - Path=/article/**
           filters:
             - StripPrefix=1
-    sentinel:
+    sentinel:   # sentinel可视化窗口
       transport:
         dashboard: localhost:8858
-  redis:
+
+  redis:        # redis配置
     host: 8.140.135.147
     port: 6380
 
 
-no:
-  require:
+norequire:      # 默认放行的请求路径
     urls:
+      - /admin/login
