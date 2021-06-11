@@ -9,8 +9,8 @@ package com.cloudwaer.common.dto;
  **/
 public enum ResponseCode {
     SUCCESS("100000", "处理成功", true),
-    ERROR("100001", "处理失败",false),
-    PARAMS_ERROR("100003","参数异常",false),
+    ERROR("100001", "处理失败", false),
+    PARAMS_ERROR("100003", "参数异常", false),
     QUERY_HYSTRIX_ERROR("200203", "从基础服务获取用户权限异常熔断", false);
 
 

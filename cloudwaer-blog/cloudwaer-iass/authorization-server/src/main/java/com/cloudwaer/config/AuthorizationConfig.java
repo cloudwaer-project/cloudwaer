@@ -43,6 +43,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 添加第三方客户端
+     *
      * @param clients
      * @throws Exception
      */
@@ -83,10 +84,11 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * jwt  token 存储方式
+     *
      * @return
      */
     private TokenStore jwtTokenStore() {
-        JwtTokenStore jwtTokenStore=new JwtTokenStore(jwtAccessTokenConverter());
+        JwtTokenStore jwtTokenStore = new JwtTokenStore(jwtAccessTokenConverter());
         return jwtTokenStore;
     }
 

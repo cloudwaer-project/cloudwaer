@@ -12,6 +12,7 @@
         <module>cloudwaer-iass</module>
         <module>cloudwaer-common</module>
         <module>cloudwaer-article</module>
+        <module>cloudwaer-comment</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
