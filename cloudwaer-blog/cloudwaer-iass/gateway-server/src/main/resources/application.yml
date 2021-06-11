@@ -19,11 +19,20 @@ spring:
             - Path=/admin/**
           filters:
             - StripPrefix=1 # 当前端访问/admin/login - >login 将admin自动的去掉
-        - id: test_router
-          uri: http://jd.com   # 转发到那个目的地
+        - id: article-service_router
+          uri: lb://cloud-article   # 转发到那个目的地
           predicates:
-            - Path=/test
+            - Path=/article/**
           filters:
-            - StripPrefix=1 # 当前端访问/user/login - >login 将user自动的去掉
+            - StripPrefix=1
     sentinel:
-      datasource:
+      transport:
+        dashboard: localhost:8858
+  redis:
+    host: 8.140.135.147
+    port: 6380
+
+
+no:
+  require:
+    urls:
