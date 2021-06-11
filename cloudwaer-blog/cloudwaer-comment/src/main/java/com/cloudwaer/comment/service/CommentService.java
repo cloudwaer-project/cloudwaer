@@ -1,6 +1,10 @@
 package com.cloudwaer.comment.service;
 
 import com.cloudwaer.comment.quantity.CommentQT;
+import com.cloudwaer.comment.quantity.CommonUtil;
+import com.cloudwaer.common.entity.BlogComment;
+
+import java.util.List;
 
 /**
  * @Author A_Nan
@@ -9,4 +13,6 @@ import com.cloudwaer.comment.quantity.CommentQT;
  */
 public interface CommentService {
     int addCommnet(CommentQT commentQT);
+
+    List<CommonUtil> finmCommentByArticleCode(String article_code);
 }

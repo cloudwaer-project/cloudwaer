@@ -9,7 +9,7 @@ public class BlogComment {
     private String articleCode;
     private String parentCommentCode;
     private String parentCommentUserCode;
-    private String replyCommentCode;
+    private String replyCommentCode = null;
     private String replyCommentUserCode;
     private Integer commentLevel = 1;
     private String content;
@@ -17,7 +17,7 @@ public class BlogComment {
     private Integer praiseNum = 0;
     private Integer topStatus = 0;
     private String createTime;
-    private Integer auditStatus=0;
+    private Integer auditStatus = 0;
     private String parentCode;
 
     public BlogComment(String USER_CODE, String USER_NAME,

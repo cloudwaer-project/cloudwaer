@@ -1,8 +1,11 @@
 package com.cloudwaer.comment.mapper;
 
+import com.cloudwaer.comment.quantity.CommonUtil;
 import com.cloudwaer.common.entity.BlogComment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Author A_Nan
@@ -20,4 +23,7 @@ public interface CommentMapper {
 
     @Select("select count(PARENT_COMMENT_CODE) from blog_comment where PARENT_COMMENT_CODE='${parent_comment_code}'")
     int findParentCommentCode(@Param("parent_comment_code") String parent_comment_code);
+
+    @Select("select * from blog_comment where ARTICLE_CODE='${article_code}'")
+    List<BlogComment> finmCommentByArticleCode(@Param("article_code") String article_code);
 }

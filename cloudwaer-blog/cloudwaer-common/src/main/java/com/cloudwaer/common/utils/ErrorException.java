@@ -24,6 +24,13 @@ public class ErrorException extends RuntimeException {
         super();
     }
 
+    public ErrorException(ErrorMe errorMe) {
+        super();
+        this.errorCode = errorMe.getResultCode();
+        this.errorMsg = errorMe.getResultMsg();
+    }
+
+
     public ErrorException(ErrorFacon errorInfoInterface) {
         super(errorInfoInterface.getResultCode() + "");
         this.errorCode = errorInfoInterface.getResultCode();
