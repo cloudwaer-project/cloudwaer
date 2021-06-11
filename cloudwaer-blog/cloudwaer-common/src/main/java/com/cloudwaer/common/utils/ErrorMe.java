@@ -8,7 +8,9 @@ public enum ErrorMe implements ErrorFacon {
     NOT_FOUND(404, "错啦,请返回首页"),
     SERVER_BUSY(503, "服务器正忙，请稍后再试!"),
     COMMENTNO_FOUND(444, "没有评论奥~"),
-    INTERNAL_SERVER_ERROR(500, "嗷嗷请求输错,请联系管理员");
+    INTERNAL_SERVER_ERROR(500, "嗷嗷请求输错,请联系管理员"),
+    INDEX_OFNUL(643, "索引越界"),
+    DATEBASE_TIMEOUT(453, "数据库连接超时");
 
     /**
      * 错误码

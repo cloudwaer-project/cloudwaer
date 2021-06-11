@@ -3,6 +3,7 @@ package com.cloudwaer.comment.controller;
 import com.cloudwaer.common.utils.ErrorException;
 import com.cloudwaer.common.utils.ErrorMe;
 import com.cloudwaer.common.utils.ResultBody;
+import com.mysql.cj.exceptions.ConnectionIsClosedException;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,5 +53,27 @@ public class CommentError {
     public ResultBody exceptionHandler(HttpServletRequest req, Exception e) {
         logger.error("未知异常！原因是:", e);
         return ResultBody.error(ErrorMe.INTERNAL_SERVER_ERROR);
+    }
+
+
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    @ResponseBody
+    public ResultBody indexOutOfBoundsException(HttpServletRequest req, Exception e) {
+        logger.error("索引越界！原因是:", e);
+        return ResultBody.error(ErrorMe.INDEX_OFNUL);
+    }
+
+    @ExceptionHandler(ConnectionIsClosedException.class)
+    @ResponseBody
+    public ResultBody connectionIsClosedException(HttpServletRequest req, Exception e) {
+        logger.error("数据库连接超时！原因是:", e);
+        return ResultBody.error(ErrorMe.DATEBASE_TIMEOUT);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseBody
+    public ResultBody illegalStateException(HttpServletRequest req, Exception e) {
+        logger.error("数据库连接超时！原因是:", e);
+        return ResultBody.error(ErrorMe.DATEBASE_TIMEOUT);
     }
 }
