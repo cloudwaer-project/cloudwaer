@@ -1,0 +1,10 @@
+server:
+  port: 9998
+
+spring:
+  application:
+    name: cloud-article
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.135.147:8848
