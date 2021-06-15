@@ -1,4 +1,4 @@
-package com.cloudwaer.comment.quantity;
+package com.cloudwaer.quantity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

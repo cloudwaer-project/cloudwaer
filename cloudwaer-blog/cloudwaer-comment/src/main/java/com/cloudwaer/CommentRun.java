@@ -1,10 +1,8 @@
-package com.cloudwaer.comment;
+package com.cloudwaer;
 
-import com.cloudwaer.comment.quantity.CommentQT;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.Bean;
 
 /**
  * @Author A_Nan

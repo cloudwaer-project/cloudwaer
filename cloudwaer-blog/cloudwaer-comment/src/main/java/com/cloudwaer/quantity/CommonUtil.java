@@ -1,4 +1,4 @@
-package com.cloudwaer.comment.quantity;
+package com.cloudwaer.quantity;
 
 import com.cloudwaer.common.entity.BlogComment;
 

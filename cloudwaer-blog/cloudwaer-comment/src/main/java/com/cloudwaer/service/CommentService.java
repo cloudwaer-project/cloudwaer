@@ -1,8 +1,7 @@
-package com.cloudwaer.comment.service;
+package com.cloudwaer.service;
 
-import com.cloudwaer.comment.quantity.CommentQT;
-import com.cloudwaer.comment.quantity.CommonUtil;
-import com.cloudwaer.common.entity.BlogComment;
+import com.cloudwaer.quantity.CommentQT;
+import com.cloudwaer.quantity.CommonUtil;
 
 import java.util.List;
 

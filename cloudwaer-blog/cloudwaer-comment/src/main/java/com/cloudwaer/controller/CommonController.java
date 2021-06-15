@@ -1,14 +1,9 @@
-package com.cloudwaer.comment.controller;
+package com.cloudwaer.controller;
 
-import com.cloudwaer.comment.quantity.CommentQT;
-import com.cloudwaer.comment.quantity.CommonUtil;
-import com.cloudwaer.comment.service.CommentService;
-import com.cloudwaer.common.entity.BlogComment;
-import com.cloudwaer.common.utils.ErrorException;
-import com.cloudwaer.common.utils.ErrorMe;
+import com.cloudwaer.quantity.CommentQT;
+import com.cloudwaer.quantity.CommonUtil;
+import com.cloudwaer.service.CommentService;
 import com.cloudwaer.common.utils.ResultBody;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -60,20 +60,23 @@ public class WebLogAspect {
         result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
         // 方法结束时间
         long end = System.currentTimeMillis();
-
-        webLog.setSpendTime((int) (start - end) / 1000); //请求 接口 时间
+        //请求 接口 时间
+        webLog.setSpendTime((int) (start - end) / 1000);
         // 获取当前请求的request对象
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         String url = request.getRequestURL().toString();
-        webLog.setUri(request.getRequestURI()); //设置请求uri
+        //设置请求uri
+        webLog.setUri(request.getRequestURI());
         webLog.setUrl(url);
         webLog.setBasePath(StrUtil.removeSuffix(url, URLUtil.url(url).getPath()));
 
         // 获取安全的上下文
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        webLog.setUsername(authentication == null ? "anonymous" : authentication.getPrincipal().toString());//获取用户名称
-        webLog.setIp(request.getRemoteAddr()); //TODO 获取ip地址
+        //获取用户名称
+        webLog.setUsername(authentication == null ? "anonymous" : authentication.getPrincipal().toString());
+        //TODO 获取ip地址
+        webLog.setIp(request.getRemoteAddr());
 
 
         // 获取方法名
@@ -81,7 +84,7 @@ public class WebLogAspect {
         Method method = signature.getMethod();
         // 获取类名
         String targetClassName = proceedingJoinPoint.getTarget().getClass().getName();
-        webLog.setMethod(targetClassName + "." + method.getName()); //
+        webLog.setMethod(targetClassName + "." + method.getName());
 
         // 因为使用到了swagger,所以在方法上添加@ApiOperation(value="")注解
         ApiOperation annotation = method.getAnnotation(ApiOperation.class);

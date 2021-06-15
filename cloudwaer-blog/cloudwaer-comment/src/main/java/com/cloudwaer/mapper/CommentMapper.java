@@ -1,6 +1,5 @@
-package com.cloudwaer.comment.mapper;
+package com.cloudwaer.mapper;
 
-import com.cloudwaer.comment.quantity.CommonUtil;
 import com.cloudwaer.common.entity.BlogComment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
