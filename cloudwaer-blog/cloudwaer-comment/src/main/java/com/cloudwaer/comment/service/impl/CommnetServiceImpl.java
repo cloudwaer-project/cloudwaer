@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @Author A_Nan
  * @Date 21/06/11 上午 11:09
- * @ClassName
+ * @ClassName 评论实现类
  */
 @Service
 public class CommnetServiceImpl implements CommentService {
@@ -117,7 +117,7 @@ public class CommnetServiceImpl implements CommentService {
                 }
             }
         }*/
-        //return之前调用一次gc
+        //return之前调用一次gc 调用不一定生效 只是表示JVM告诉JVM我希望回收这里的Null对象
         System.gc();
         return commonUtils;
     }
