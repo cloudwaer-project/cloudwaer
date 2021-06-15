@@ -53,7 +53,12 @@ public class CommnetServiceImpl implements CommentService {
     @Override
     public List<CommonUtil> finmCommentByArticleCode(String article_code) {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<BlogComment> list = commentMapper.finmCommentByArticleCode(article_code);
+        List<BlogComment> list = null;
+        try {
+            list = commentMapper.finmCommentByArticleCode(article_code);
+        } catch (Exception e) {
+            throw new ErrorException(7865, "长时间未操作,状态失效请等待刷新页面,然后重试");
+        }
         CommonUtil commonUtil = null;//单条评论
         List<CommonUtil> commonUtils = new ArrayList<>();//全部的评论包含了一级的
         if (list.size() <= 0) {

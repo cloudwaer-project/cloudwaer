@@ -7,6 +7,7 @@ import com.cloudwaer.common.entity.BlogComment;
 import com.cloudwaer.common.utils.ErrorException;
 import com.cloudwaer.common.utils.ErrorMe;
 import com.cloudwaer.common.utils.ResultBody;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,8 @@ public class CommonController {
 
 
     /**
+     * 发布一条消息,
+     *
      * @Method addCommnet 发布一条评论
      * @USER_CODE 用户ID
      * @USER_NAME 用户显示名称
@@ -66,4 +69,23 @@ public class CommonController {
         resultBody.setResult(list);
         return resultBody.toString();
     }
+
+
+/*    *//**
+     * 修改评论置顶状态
+     *
+     * @param
+     *//*
+
+    @RequestMapping("/updateTopStatus")
+    public String updateTopStatus(@RequestBody JsonNode PARENTCOMMENTCODE) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(PARENTCOMMENTCODE.toString());
+        System.out.println(PARENTCOMMENTCODE.get("PARENTCOMMENTCODE"));
+//        commnetService.updateTopStatus(PARENTCOMMENTCODE);
+        resultBody.setResult(null);
+        resultBody.setCode(200);
+        resultBody.setMessage("OK");
+        return resultBody.toString();
+    }*/
 }
