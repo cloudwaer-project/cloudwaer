@@ -3,6 +3,7 @@ package com.cloudwaer.service.impl;
 import com.cloudwaer.mapper.CommentMapper;
 import com.cloudwaer.quantity.CommentQT;
 import com.cloudwaer.quantity.CommonUtil;
+import com.cloudwaer.quantity.UpdTopUtils;
 import com.cloudwaer.service.CommentService;
 import com.cloudwaer.common.entity.BlogComment;
 import com.cloudwaer.common.utils.ErrorException;
@@ -40,6 +41,11 @@ public class CommnetServiceImpl implements CommentService {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式 到时候设计为工具类
         //创建需要添加的数据的实体类对象并且设置数据
+        try {
+            commentQT.toString();
+        } catch (Exception e) {
+            throw new ErrorException(ErrorMe.BODY_NOT_MATCH);
+        }
         BlogComment blogComment = new BlogComment(commentQT.getUSER_CODE(), commentQT.getUSER_NAME(),
                 commentQT.getARTICLE_CODE(), PARENT_COMMENT_CODE,
                 commentQT.getPARENT_COMMENT_USER_CODE(),
@@ -59,7 +65,7 @@ public class CommnetServiceImpl implements CommentService {
             throw new ErrorException(7865, "长时间未操作,状态失效请等待刷新页面,然后重试");
         }
         CommonUtil commonUtil = null;//单条评论
-        List<CommonUtil> commonUtils = new ArrayList<>();//全部的评论包含了一级的
+        List<CommonUtil> commonUtils = new ArrayList<CommonUtil>();//全部的评论包含了一级的
         if (list.size() <= 0) {
             throw new ErrorException(ErrorMe.COMMENTNO_FOUND);
         }
@@ -119,5 +125,30 @@ public class CommnetServiceImpl implements CommentService {
         //return之前调用一次gc 调用不一定生效 只是表示JVM告诉JVM我希望回收这里的Null对象
         System.gc();
         return commonUtils;
+    }
+
+
+    /**
+     * @param updTopUtils 包含评论CODE 文章CODE 和置顶状态 ,置顶状态已经转为相反的了
+     * @return 返回是否修改成功
+     */
+    @Override
+    public int updateTopStatus(UpdTopUtils updTopUtils) {
+        int a = 0;
+        try {
+            a = commentMapper.updateTopStatus(updTopUtils);
+        } catch (Exception e) {
+            throw new ErrorException(ErrorMe.TOP_ERROR);
+        }
+        return a;
+    }
+
+    /**
+     * @return 返回所有未审核的评论列表
+     **/
+
+    @Override
+    public List<BlogComment> findAllUnrevised() {
+        return commentMapper.findAllUnrevised();
     }
 }

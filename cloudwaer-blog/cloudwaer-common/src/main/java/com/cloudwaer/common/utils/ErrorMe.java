@@ -10,7 +10,9 @@ public enum ErrorMe implements ErrorFacon {
     COMMENTNO_FOUND(444, "没有评论奥~"),
     INTERNAL_SERVER_ERROR(500, "嗷嗷请求输错,请联系管理员"),
     INDEX_OFNUL(643, "索引越界"),
-    DATEBASE_TIMEOUT(453, "数据库连接超时");
+    DATEBASE_TIMEOUT(453, "数据库连接超时"),
+    TOP_ERROR(543, "请确保参数为0或者1");
+
 
     /**
      * 错误码

@@ -1,7 +1,9 @@
 package com.cloudwaer.service;
 
+import com.cloudwaer.common.entity.BlogComment;
 import com.cloudwaer.quantity.CommentQT;
 import com.cloudwaer.quantity.CommonUtil;
+import com.cloudwaer.quantity.UpdTopUtils;
 
 import java.util.List;
 
@@ -14,4 +16,8 @@ public interface CommentService {
     int addCommnet(CommentQT commentQT);
 
     List<CommonUtil> finmCommentByArticleCode(String article_code);
+
+    int updateTopStatus(UpdTopUtils updTopUtils);
+
+    List<BlogComment> findAllUnrevised();
 }

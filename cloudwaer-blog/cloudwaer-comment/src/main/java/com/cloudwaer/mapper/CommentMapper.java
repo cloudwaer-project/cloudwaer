@@ -1,6 +1,7 @@
 package com.cloudwaer.mapper;
 
 import com.cloudwaer.common.entity.BlogComment;
+import com.cloudwaer.quantity.UpdTopUtils;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,12 @@ public interface CommentMapper {
     @Select("select count(PARENT_COMMENT_CODE) from blog_comment where PARENT_COMMENT_CODE='${parent_comment_code}'")
     int findParentCommentCode(@Param("parent_comment_code") String parent_comment_code);
 
-    @Select("select * from blog_comment where ARTICLE_CODE='${article_code}'")
+    @Select("select * from blog_comment where ARTICLE_CODE='${article_code}' and AUDIT_STATUS='2'")
     List<BlogComment> finmCommentByArticleCode(@Param("article_code") String article_code);
+
+    @Update("update blog_comment set TOP_STATUS=${TOP_STATUS} where ARTICLE_CODE='${ARTICLE_CODE}' and PARENT_COMMENT_CODE='${PARENT_COMMENT_CODE}'")
+    int updateTopStatus(UpdTopUtils updTopUtils);
+
+    @Select("select * from blog_comment where AUDIT_STATUS='0'")
+    List<BlogComment> findAllUnrevised();
 }
