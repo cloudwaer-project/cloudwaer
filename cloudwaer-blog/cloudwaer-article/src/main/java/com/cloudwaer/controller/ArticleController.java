@@ -61,8 +61,13 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 新增和更新文章
+     * @param articleReqDto
+     * @return
+     */
     @RequestMapping(value = "/saveOrUpdateArticle", method = RequestMethod.POST)
-    public ResponseDto saveArticle(@RequestBody ArticleReqDto articleReqDto) {
+    public ResponseDto saveOrUpdateArticle(@RequestBody ArticleReqDto articleReqDto) {
         try {
             logger.info("添加文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));
             blogArticleService.saveArticle(articleReqDto);
@@ -76,6 +81,20 @@ public class ArticleController {
         }
     }
 
+    @RequestMapping(value = "/deleteArticle",method = RequestMethod.POST)
+    public ResponseDto deleteArticle(@RequestBody ArticleReqDto articleReqDto){
+        try {
+            logger.info("删除文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));
+            blogArticleService.deleteArticle(articleReqDto);
+            return ResponseUtils.buildVoByResponseCode(ResponseCode.SUCCESS);
+        } catch (ParamsException e) {
+            logger.info("删除文章接口参数异常:{}", e);
+            return ResponseUtils.buildVoByResponseCode(ResponseCode.PARAMS_ERROR, e.getMsg());
+        } catch (Exception e) {
+            logger.info("删除文章接口异常:{}", e);
+            return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR);
+        }
+    }
 
 
     /*@Autowired

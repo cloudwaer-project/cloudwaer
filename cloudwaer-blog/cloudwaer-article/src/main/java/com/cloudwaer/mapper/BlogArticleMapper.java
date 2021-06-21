@@ -44,4 +44,10 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      * @param articleReqDto
      */
     void saveArticle(@Param("articleReqDto") ArticleReqDto articleReqDto);
+
+    /**
+     * 删除文章
+     * @param articleReqDto
+     */
+    void deleteArticle(@Param("articleReqDto") ArticleReqDto articleReqDto);
 }

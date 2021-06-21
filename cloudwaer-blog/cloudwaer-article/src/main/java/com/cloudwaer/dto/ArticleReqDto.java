@@ -21,7 +21,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class ArticleReqDto extends PageVo {
 
-
+    /**
+     * 主键编号
+     */
+    private Integer id;
 
     /**
      * 文章唯一编号,发布文章时自动生成

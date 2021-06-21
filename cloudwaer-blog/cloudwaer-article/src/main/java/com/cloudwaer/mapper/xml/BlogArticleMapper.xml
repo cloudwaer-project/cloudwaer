@@ -107,6 +107,9 @@
             </if>
         </trim>
     </insert>
+    <delete id="deleteArticle" parameterType="com.cloudwaer.dto.ArticleReqDto">
+        update blog_article set ARTICLE_DELFLAG = 1 where ID=#{articleReqDto.id} or ARTICLE_UNIQUE_CODE=#{articleReqDto.articleUniqueCode}
+    </delete>
 
     <select id="queryArticleList" resultMap="BaseResultMap" resultType="com.cloudwaer.dto.ArticleRespDto">
         select

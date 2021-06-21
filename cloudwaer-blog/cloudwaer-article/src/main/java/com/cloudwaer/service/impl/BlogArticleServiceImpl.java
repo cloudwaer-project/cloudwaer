@@ -107,6 +107,11 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         }
     }
 
+    @Override
+    public void deleteArticle(ArticleReqDto articleReqDto) {
+        blogArticleMapper.deleteArticle(articleReqDto);
+    }
+
     /**
      * 用于初始化文章添加时需要的默认值
      *

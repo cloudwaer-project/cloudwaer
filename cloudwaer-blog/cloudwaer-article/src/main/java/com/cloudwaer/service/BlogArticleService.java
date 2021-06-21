@@ -32,4 +32,10 @@ public interface BlogArticleService extends IService<BlogArticle> {
      * @param articleReqDto
      */
     void saveArticle(ArticleReqDto articleReqDto);
+
+    /**
+     * 删除文章
+     * @param articleReqDto
+     */
+    void deleteArticle(ArticleReqDto articleReqDto);
 }
