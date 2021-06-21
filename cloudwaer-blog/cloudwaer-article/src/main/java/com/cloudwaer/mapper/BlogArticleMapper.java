@@ -2,8 +2,10 @@ package com.cloudwaer.mapper;
 
 import com.cloudwaer.dto.ArticleReqDto;
 import com.cloudwaer.dto.ArticleRespDto;
-import com.cloudwaer.entity.BlogArticle;
+import com.cloudwaer.common.entity.BlogArticle;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cloudwaer.entity.Dept;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,7 +19,29 @@ import java.util.List;
  */
 public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
 
+    /**
+     * 查询文章列表
+     * @param articleReqDto
+     * @return
+     */
     List<ArticleRespDto> queryArticleList(ArticleReqDto articleReqDto);
 
-    int queryArticleCount(ArticleReqDto articleReqDto);
+    /**
+     * 查询文章数量
+     * @param articleReqDto
+     * @return
+     */
+    Integer queryArticleCount(ArticleReqDto articleReqDto);
+
+    /**
+     * 测试 N节点数据使用的方法
+     * @return
+     */
+    List<Dept> queryAll();
+
+    /**
+     * 添加文章
+     * @param articleReqDto
+     */
+    void saveArticle(@Param("articleReqDto") ArticleReqDto articleReqDto);
 }

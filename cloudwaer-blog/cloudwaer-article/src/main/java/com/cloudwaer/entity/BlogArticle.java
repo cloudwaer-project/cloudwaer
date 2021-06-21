@@ -55,11 +55,6 @@ public class BlogArticle implements Serializable {
     @TableField("ARTICLE_CONTENT")
     private String articleContent;
 
-    /**
-     * 文章标签的唯一编号 可以多个  以,分割
-     */
-    @TableField("ARTICLE_TAGS")
-    private String articleTags;
 
     /**
      * 是否开启评论 0关闭1开启
@@ -115,11 +110,7 @@ public class BlogArticle implements Serializable {
     @TableField("ARTICLE_ORDER")
     private Integer articleOrder;
 
-    /**
-     * 文章分类
-     */
-    @TableField("CATRGORY_CODE")
-    private String catrgoryCode;
+
 
 
 }

@@ -1,167 +1,113 @@
 package com.cloudwaer.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-public class BlogArticle {
+import java.io.Serializable;
+import java.util.Date;
 
-  private long id;
-  private String articleUniqueCode;
-  private String articleTitle;
-  private String articleImage;
-  private String articleContent;
-  private String articleTags;
-  private long articleEnableComment;
-  private long articleViews;
-  private java.sql.Timestamp articleCreatetime;
-  private long articleDelflag;
-  private java.sql.Timestamp articleUpdatetim;
-  private String articleCreatecode;
-  private String articleUpdatecode;
-  private long articleHot;
-  private long articleOrder;
-  private String catrgoryCode;
+/**
+ * <p>
+ *
+ * </p>
+ *
+ * @author jiushiboy
+ * @since 2021-06-07
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class BlogArticle implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-  public long getId() {
-    return id;
-  }
+    /**
+     * 主键自增
+     */
+    @TableId("ID")
+    private int id;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    /**
+     * 文章唯一编号,发布文章时自动生成
+     */
+    @TableField("ARTICLE_UNIQUE_CODE")
+    private String articleUniqueCode;
 
+    /**
+     * 文章标题
+     */
+    @TableField("ARTICLE_TITLE")
+    private String articleTitle;
 
-  public String getArticleUniqueCode() {
-    return articleUniqueCode;
-  }
+    /**
+     * 文章封面
+     */
+    @TableField("ARTICLE_IMAGE")
+    private String articleImage;
 
-  public void setArticleUniqueCode(String articleUniqueCode) {
-    this.articleUniqueCode = articleUniqueCode;
-  }
-
-
-  public String getArticleTitle() {
-    return articleTitle;
-  }
-
-  public void setArticleTitle(String articleTitle) {
-    this.articleTitle = articleTitle;
-  }
-
-
-  public String getArticleImage() {
-    return articleImage;
-  }
-
-  public void setArticleImage(String articleImage) {
-    this.articleImage = articleImage;
-  }
+    /**
+     * 文章内容
+     */
+    @TableField("ARTICLE_CONTENT")
+    private String articleContent;
 
 
-  public String getArticleContent() {
-    return articleContent;
-  }
+    /**
+     * 是否开启评论 0关闭1开启
+     */
+    @TableField("ARTICLE_ENABLE_COMMENT")
+    private Boolean articleEnableComment;
 
-  public void setArticleContent(String articleContent) {
-    this.articleContent = articleContent;
-  }
+    /**
+     * 文章访问量
+     */
+    @TableField("ARTICLE_VIEWS")
+    private Integer articleViews;
 
+    /**
+     * 文章发布时间
+     */
+    @TableField("ARTICLE_CREATETIME")
+    private Date articleCreatetime;
 
-  public String getArticleTags() {
-    return articleTags;
-  }
+    /**
+     * 文章是否删除0删除1未删除
+     */
+    @TableField("ARTICLE_DELFLAG")
+    private Integer articleDelflag;
 
-  public void setArticleTags(String articleTags) {
-    this.articleTags = articleTags;
-  }
+    /**
+     * 文章更新时间
+     */
+    @TableField("ARTICLE_UPDATETIM")
+    private Date articleUpdatetim;
 
+    /**
+     * 文章发布用户的唯一编号
+     */
+    @TableField("ARTICLE_CREATECODE")
+    private String articleCreatecode;
 
-  public long getArticleEnableComment() {
-    return articleEnableComment;
-  }
+    /**
+     * 文章最后编辑用户编号
+     */
+    @TableField("ARTICLE_UPDATECODE")
+    private String articleUpdatecode;
 
-  public void setArticleEnableComment(long articleEnableComment) {
-    this.articleEnableComment = articleEnableComment;
-  }
+    /**
+     * 文章热度
+     */
+    @TableField("ARTICLE_HOT")
+    private Integer articleHot;
 
-
-  public long getArticleViews() {
-    return articleViews;
-  }
-
-  public void setArticleViews(long articleViews) {
-    this.articleViews = articleViews;
-  }
-
-
-  public java.sql.Timestamp getArticleCreatetime() {
-    return articleCreatetime;
-  }
-
-  public void setArticleCreatetime(java.sql.Timestamp articleCreatetime) {
-    this.articleCreatetime = articleCreatetime;
-  }
-
-
-  public long getArticleDelflag() {
-    return articleDelflag;
-  }
-
-  public void setArticleDelflag(long articleDelflag) {
-    this.articleDelflag = articleDelflag;
-  }
-
-
-  public java.sql.Timestamp getArticleUpdatetim() {
-    return articleUpdatetim;
-  }
-
-  public void setArticleUpdatetim(java.sql.Timestamp articleUpdatetim) {
-    this.articleUpdatetim = articleUpdatetim;
-  }
+    /**
+     * 文章排序
+     */
+    @TableField("ARTICLE_ORDER")
+    private Integer articleOrder;
 
 
-  public String getArticleCreatecode() {
-    return articleCreatecode;
-  }
 
-  public void setArticleCreatecode(String articleCreatecode) {
-    this.articleCreatecode = articleCreatecode;
-  }
-
-
-  public String getArticleUpdatecode() {
-    return articleUpdatecode;
-  }
-
-  public void setArticleUpdatecode(String articleUpdatecode) {
-    this.articleUpdatecode = articleUpdatecode;
-  }
-
-
-  public long getArticleHot() {
-    return articleHot;
-  }
-
-  public void setArticleHot(long articleHot) {
-    this.articleHot = articleHot;
-  }
-
-
-  public long getArticleOrder() {
-    return articleOrder;
-  }
-
-  public void setArticleOrder(long articleOrder) {
-    this.articleOrder = articleOrder;
-  }
-
-
-  public String getCatrgoryCode() {
-    return catrgoryCode;
-  }
-
-  public void setCatrgoryCode(String catrgoryCode) {
-    this.catrgoryCode = catrgoryCode;
-  }
 
 }

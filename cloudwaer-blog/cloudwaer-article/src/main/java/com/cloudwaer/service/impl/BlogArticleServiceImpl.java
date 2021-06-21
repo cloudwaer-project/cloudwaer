@@ -1,18 +1,30 @@
 package com.cloudwaer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloudwaer.common.dto.ResponseCode;
 import com.cloudwaer.common.dto.ResponseDto;
+import com.cloudwaer.common.entity.BlogArticle;
+import com.cloudwaer.common.exception.ParamsException;
+import com.cloudwaer.common.utils.DateTimeUtil;
+import com.cloudwaer.common.utils.GenerateSystemCodeUtils;
 import com.cloudwaer.common.utils.PageModel;
 import com.cloudwaer.common.utils.ParamUtils;
 import com.cloudwaer.dto.ArticleReqDto;
 import com.cloudwaer.dto.ArticleRespDto;
-import com.cloudwaer.entity.BlogArticle;
 import com.cloudwaer.mapper.BlogArticleMapper;
 import com.cloudwaer.service.BlogArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,4 +73,63 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         pageModel.setTotal(total);
         return pageModel;
     }
+
+    /**
+     * 添加文章
+     *
+     * @param articleReqDto
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveArticle(ArticleReqDto articleReqDto) {
+        // 参数转换
+        BlogArticle article = this.ArticleReqDtoToBlogArticle(articleReqDto);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Date currDate = DateTimeUtil.getCurrDate();
+        // 传入参数文章唯一编号为空则做增加操作
+        if (StringUtils.isEmpty(articleReqDto.getArticleUniqueCode())) {
+            // 1.参数校验
+            ParamUtils.isParamsNotNull(articleReqDto, "articleTitle", "articleTags", "catrgoryCode", "catrgoryCode");
+            article.setArticleCreatetime(currDate);
+            article.setArticleCreatecode(username);
+            article.setArticleUniqueCode(GenerateSystemCodeUtils.obtainKeyDateSeqYMD("WZMK"));
+            // 3.文章新增
+            save(article);
+            //TODO 标签与分类新增待处理
+        } else {
+            // 更新操作
+            article.setArticleUpdatecode(username);
+            article.setArticleUpdatetim(currDate);
+            QueryWrapper<BlogArticle> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("ARTICLE_UNIQUE_CODE",article.getArticleUniqueCode());
+            update(article,queryWrapper);
+            //TODO 标签与分类修改待处理
+        }
+    }
+
+    /**
+     * 用于初始化文章添加时需要的默认值
+     *
+     * @param BlogArticle
+     * @return
+     */
+    private BlogArticle ArticleReqDtoToBlogArticle(ArticleReqDto articleReqDto) {
+        BlogArticle blogArticle = new BlogArticle();
+        blogArticle.setArticleContent(articleReqDto.getArticleContent());
+        blogArticle.setArticleImage(articleReqDto.getArticleImage());
+        blogArticle.setArticleTitle(articleReqDto.getArticleTitle());
+        blogArticle.setArticleCreatetime(articleReqDto.getArticleCreatetime());
+        blogArticle.setArticleDelflag(articleReqDto.getArticleDelflag());
+        blogArticle.setArticleEnableComment(articleReqDto.getArticleEnableComment());
+        blogArticle.setArticleHot(articleReqDto.getArticleHot());
+        blogArticle.setArticleOrder(articleReqDto.getArticleOrder());
+        blogArticle.setArticleUniqueCode(articleReqDto.getArticleUniqueCode());
+        blogArticle.setArticleCreatecode(articleReqDto.getArticleCreatecode());
+        blogArticle.setArticleUpdatecode(articleReqDto.getArticleUpdatecode());
+        blogArticle.setArticleUpdatetim(articleReqDto.getArticleUpdatetim());
+        blogArticle.setArticleViews(articleReqDto.getArticleViews());
+        return blogArticle;
+    }
+
+
 }

@@ -50,7 +50,7 @@ public class WebLogAspect {
     /**
      * 环绕通知
      */
-    @Around("webLog()")
+//    @Around("webLog()")
     public Object recodeWebLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = null;
         WebLog webLog = new WebLog();

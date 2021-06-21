@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName ArticleReqDto
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ArticleReqDto extends PageVo {
+
 
 
     /**
@@ -41,9 +44,9 @@ public class ArticleReqDto extends PageVo {
     private String articleContent;
 
     /**
-     * 文章标签的唯一编号 可以多个  以,分割
+     * 文章标签的唯一编号
      */
-    private String articleTags;
+    private List<String> articleTags;
 
     /**
      * 是否开启评论 0关闭1开启
@@ -58,7 +61,7 @@ public class ArticleReqDto extends PageVo {
     /**
      * 文章发布时间
      */
-    private LocalDateTime articleCreatetime;
+    private Date articleCreatetime;
 
     /**
      * 文章是否删除0删除1未删除
@@ -68,7 +71,7 @@ public class ArticleReqDto extends PageVo {
     /**
      * 文章更新时间
      */
-    private LocalDateTime articleUpdatetim;
+    private Date articleUpdatetim;
 
     /**
      * 文章发布用户的唯一编号
