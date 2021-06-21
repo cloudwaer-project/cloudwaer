@@ -46,7 +46,7 @@ public class ArticleController {
     private BlogArticleService blogArticleService;
 
     @RequestMapping(value = "/queryArticleList", method = RequestMethod.POST)
-    public ResponseDto queryArticleList(ArticleReqDto articleReqDto) {
+    public ResponseDto queryArticleList(@RequestBody ArticleReqDto articleReqDto) {
         try {
             logger.info("查询文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));
             PageModel articleRespDtos = blogArticleService.queryArticleList(articleReqDto);
@@ -61,7 +61,7 @@ public class ArticleController {
         }
     }
 
-    @RequestMapping(value = "/saveArticle", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveOrUpdateArticle", method = RequestMethod.POST)
     public ResponseDto saveArticle(@RequestBody ArticleReqDto articleReqDto) {
         try {
             logger.info("添加文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));

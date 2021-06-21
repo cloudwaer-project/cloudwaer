@@ -24,14 +24,14 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      * @param articleReqDto
      * @return
      */
-    List<ArticleRespDto> queryArticleList(ArticleReqDto articleReqDto);
+    List<ArticleRespDto> queryArticleList(@Param("articleReqDto") ArticleReqDto articleReqDto);
 
     /**
      * 查询文章数量
      * @param articleReqDto
      * @return
      */
-    Integer queryArticleCount(ArticleReqDto articleReqDto);
+    Integer queryArticleCount(@Param("articleReqDto") ArticleReqDto articleReqDto);
 
     /**
      * 测试 N节点数据使用的方法

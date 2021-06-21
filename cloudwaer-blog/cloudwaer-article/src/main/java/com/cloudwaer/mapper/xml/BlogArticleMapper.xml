@@ -113,9 +113,91 @@
         <include refid="Base_Column_List"/>
         from
         blog_article
+        where ARTICLE_DELFLAG = 0
+        <if test="articleReqDto != null">
+            <if test="articleReqDto.articleUniqueCode != null">
+                and ARTICLE_UNIQUE_CODE = #{articleReqDto.articleUniqueCode}
+            </if>
+            <if test="articleReqDto.articleTitle != null">
+                and ARTICLE_TITLE = #{articleReqDto.articleTitle}
+            </if>
+            <if test="articleReqDto.articleImage != null">
+                and ARTICLE_IMAGE = #{articleReqDto.articleImage}
+            </if>
+            <if test="articleReqDto.articleContent != null">
+                and ARTICLE_CONTENT = #{articleReqDto.articleContent}
+            </if>
+            <if test="articleReqDto.articleEnableComment != null">
+                and ARTICLE_ENABLE_COMMENT = #{articleReqDto.articleEnableComment}
+            </if>
+            <if test="articleReqDto.articleViews != null">
+                and ARTICLE_VIEWS = #{articleReqDto.articleViews}
+            </if>
+            <if test="articleReqDto.articleCreatetime != null">
+                and ARTICLE_CREATETIME = #{articleReqDto.articleCreatetime}
+            </if>
+            <if test="articleReqDto.articleDelflag != null">
+                and ARTICLE_DELFLAG = #{articleReqDto.articleDelflag}
+            </if>
+            <if test="articleReqDto.articleUpdatetim != null">
+                and ARTICLE_UPDATETIM = #{articleReqDto.articleUpdatetim}
+            </if>
+            <if test="articleReqDto.articleCreatecode != null">
+                and ARTICLE_CREATECODE = #{articleReqDto.articleCreatecode}
+            </if>
+            <if test="articleReqDto.articleUpdatecode != null">
+                and ARTICLE_UPDATECODE = #{articleReqDto.articleUpdatecode}
+            </if>
+            <if test="articleReqDto.articleHot != null">
+                and ARTICLE_HOT = #{articleReqDto.articleHot}
+            </if>
+        </if>
+        order by ARTICLE_ORDER desc
+        <if test="articleReqDto.end != 0">
+            limit #{articleReqDto.start}, #{articleReqDto.end}
+        </if>
     </select>
     <select id="queryArticleCount" resultType="java.lang.Integer">
         select count(1) from  blog_article
+        where ARTICLE_DELFLAG = 0
+        <if test="articleReqDto != null">
+            <if test="articleReqDto.articleUniqueCode != null">
+                and ARTICLE_UNIQUE_CODE = #{articleReqDto.articleUniqueCode}
+            </if>
+            <if test="articleReqDto.articleTitle != null">
+                and ARTICLE_TITLE = #{articleReqDto.articleTitle}
+            </if>
+            <if test="articleReqDto.articleImage != null">
+                and ARTICLE_IMAGE = #{articleReqDto.articleImage}
+            </if>
+            <if test="articleReqDto.articleContent != null">
+                and ARTICLE_CONTENT = #{articleReqDto.articleContent}
+            </if>
+            <if test="articleReqDto.articleEnableComment != null">
+                and ARTICLE_ENABLE_COMMENT = #{articleReqDto.articleEnableComment}
+            </if>
+            <if test="articleReqDto.articleViews != null">
+                and ARTICLE_VIEWS = #{articleReqDto.articleViews}
+            </if>
+            <if test="articleReqDto.articleCreatetime != null">
+                and ARTICLE_CREATETIME = #{articleReqDto.articleCreatetime}
+            </if>
+            <if test="articleReqDto.articleDelflag != null">
+                and ARTICLE_DELFLAG = #{articleReqDto.articleDelflag}
+            </if>
+            <if test="articleReqDto.articleUpdatetim != null">
+                and ARTICLE_UPDATETIM = #{articleReqDto.articleUpdatetim}
+            </if>
+            <if test="articleReqDto.articleCreatecode != null">
+                and ARTICLE_CREATECODE = #{articleReqDto.articleCreatecode}
+            </if>
+            <if test="articleReqDto.articleUpdatecode != null">
+                and ARTICLE_UPDATECODE = #{articleReqDto.articleUpdatecode}
+            </if>
+            <if test="articleReqDto.articleHot != null">
+                and ARTICLE_HOT = #{articleReqDto.articleHot}
+            </if>
+        </if>
     </select>
     <select id="queryAll" resultType="com.cloudwaer.entity.Dept">
         select id,parent_id parentId from sys_dept
