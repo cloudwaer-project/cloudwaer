@@ -1,8 +1,8 @@
 package com.cloudwaer.mapper;
 
-import com.cloudwaer.dto.ArticleReqDto;
-import com.cloudwaer.dto.ArticleRespDto;
-import com.cloudwaer.common.entity.BlogArticle;
+import com.cloudwaer.common.dto.article.ArticleReqDto;
+import com.cloudwaer.common.dto.article.ArticleRespDto;
+import com.cloudwaer.common.entity.article.BlogArticle;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloudwaer.entity.Dept;
 import org.apache.ibatis.annotations.Param;

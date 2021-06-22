@@ -1,22 +1,16 @@
 package com.cloudwaer.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.cloudwaer.channel.category.CategoryFeignClient;
 import com.cloudwaer.common.dto.ResponseCode;
 import com.cloudwaer.common.dto.ResponseDto;
 import com.cloudwaer.common.exception.ParamsException;
 import com.cloudwaer.common.utils.PageModel;
 import com.cloudwaer.common.utils.ResponseUtils;
-import com.cloudwaer.dto.ArticleReqDto;
-import com.cloudwaer.dto.ArticleRespDto;
-import com.cloudwaer.entity.Dept;
-import com.cloudwaer.mapper.BlogArticleMapper;
+import com.cloudwaer.common.dto.article.ArticleReqDto;
 import com.cloudwaer.service.BlogArticleService;
-import com.google.common.collect.Lists;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName ArticleController 控制层  --->  请求访问层
@@ -96,6 +86,13 @@ public class ArticleController {
         }
     }
 
+    @Resource
+    private CategoryFeignClient categoryFeignClient;
+
+    @GetMapping("/test")
+    public ResponseDto test(){
+        return ResponseUtils.buildVoByResponseCode(ResponseCode.SUCCESS,categoryFeignClient.queryAllCategory());
+    }
 
     /*@Autowired
     private BlogArticleMapper blogArticleMapper;

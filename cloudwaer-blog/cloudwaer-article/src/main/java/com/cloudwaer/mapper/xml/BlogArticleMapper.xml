@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloudwaer.mapper.BlogArticleMapper">
     <!--实体映射-->
-    <resultMap id="BaseResultMap" type="com.cloudwaer.common.entity.BlogArticle">
+    <resultMap id="BaseResultMap" type="com.cloudwaer.common.entity.article.BlogArticle">
         <result property="articleUniqueCode" column="ARTICLE_UNIQUE_CODE"></result>
         <result property="articleTitle" column="ARTICLE_TITLE"></result>
         <result property="articleImage" column="ARTICLE_IMAGE"></result>
@@ -21,7 +21,7 @@
     <sql id="Base_Column_List">
          ID ,ARTICLE_UNIQUE_CODE ,ARTICLE_TITLE ,ARTICLE_IMAGE ,ARTICLE_CONTENT ,ARTICLE_TAGS ,ARTICLE_ENABLE_COMMENT ,ARTICLE_VIEWS ,ARTICLE_CREATETIME ,ARTICLE_DELFLAG ,ARTICLE_UPDATETIM ,ARTICLE_CREATECODE ,ARTICLE_UPDATECODE ,ARTICLE_HOT ,ARTICLE_ORDER ,CATRGORY_CODE
     </sql>
-    <insert id="saveArticle" parameterType="com.cloudwaer.dto.ArticleReqDto">
+    <insert id="saveArticle" parameterType="com.cloudwaer.common.dto.article.ArticleReqDto">
         insert into blog_article
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="articleReqDto.articleUniqueCode != null">
@@ -107,11 +107,11 @@
             </if>
         </trim>
     </insert>
-    <delete id="deleteArticle" parameterType="com.cloudwaer.dto.ArticleReqDto">
+    <delete id="deleteArticle" parameterType="com.cloudwaer.common.dto.article.ArticleReqDto">
         update blog_article set ARTICLE_DELFLAG = 1 where ID=#{articleReqDto.id} or ARTICLE_UNIQUE_CODE=#{articleReqDto.articleUniqueCode}
     </delete>
 
-    <select id="queryArticleList" resultMap="BaseResultMap" resultType="com.cloudwaer.dto.ArticleRespDto">
+    <select id="queryArticleList" resultMap="BaseResultMap" resultType="com.cloudwaer.common.dto.article.ArticleRespDto">
         select
         <include refid="Base_Column_List"/>
         from

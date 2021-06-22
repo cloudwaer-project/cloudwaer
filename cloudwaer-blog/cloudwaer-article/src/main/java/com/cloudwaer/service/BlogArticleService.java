@@ -1,13 +1,9 @@
 package com.cloudwaer.service;
 
-import com.cloudwaer.common.dto.ResponseDto;
 import com.cloudwaer.common.utils.PageModel;
-import com.cloudwaer.dto.ArticleReqDto;
-import com.cloudwaer.dto.ArticleRespDto;
-import com.cloudwaer.common.entity.BlogArticle;
+import com.cloudwaer.common.dto.article.ArticleReqDto;
+import com.cloudwaer.common.entity.article.BlogArticle;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>

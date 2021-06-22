@@ -1,8 +1,10 @@
-package com.cloudwaer.dto;
+package com.cloudwaer.common.dto.article;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.cloudwaer.common.dto.PageVo;
+import com.cloudwaer.common.dto.category.CategoryReqDto;
+import com.cloudwaer.common.entity.category.BlogCartgory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -99,5 +101,5 @@ public class ArticleReqDto extends PageVo {
     /**
      * 文章分类
      */
-    private String catrgoryCode;
+    private CategoryReqDto categoryReqDto;
 }

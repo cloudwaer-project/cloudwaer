@@ -1,31 +1,34 @@
 package com.cloudwaer.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloudwaer.channel.category.CategoryFeignClient;
 import com.cloudwaer.common.dto.ResponseCode;
 import com.cloudwaer.common.dto.ResponseDto;
-import com.cloudwaer.common.entity.BlogArticle;
-import com.cloudwaer.common.exception.ParamsException;
+import com.cloudwaer.common.dto.category.CategoryReqDto;
+import com.cloudwaer.common.dto.category.CategoryRespDto;
+import com.cloudwaer.common.entity.article.BlogArticle;
 import com.cloudwaer.common.utils.DateTimeUtil;
 import com.cloudwaer.common.utils.GenerateSystemCodeUtils;
 import com.cloudwaer.common.utils.PageModel;
 import com.cloudwaer.common.utils.ParamUtils;
-import com.cloudwaer.dto.ArticleReqDto;
-import com.cloudwaer.dto.ArticleRespDto;
+import com.cloudwaer.common.dto.article.ArticleReqDto;
+import com.cloudwaer.common.dto.article.ArticleRespDto;
+import com.cloudwaer.controller.ArticleController;
 import com.cloudwaer.mapper.BlogArticleMapper;
 import com.cloudwaer.service.BlogArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+//import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * <p>
@@ -38,9 +41,14 @@ import java.util.List;
 @Service
 public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogArticle> implements BlogArticleService {
 
+    private Logger logger = LoggerFactory.getLogger(BlogArticleServiceImpl.class);
+
 
     @Resource
     private BlogArticleMapper blogArticleMapper;
+
+    @Resource
+    private CategoryFeignClient categoryFeignClient;
 
     /**
      * 查询文章列表
@@ -84,29 +92,44 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     public void saveArticle(ArticleReqDto articleReqDto) {
         // 参数转换
         BlogArticle article = this.ArticleReqDtoToBlogArticle(articleReqDto);
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Date currDate = DateTimeUtil.getCurrDate();
         // 传入参数文章唯一编号为空则做增加操作
         if (StringUtils.isEmpty(articleReqDto.getArticleUniqueCode())) {
             // 1.参数校验
             ParamUtils.isParamsNotNull(articleReqDto, "articleTitle", "articleTags", "catrgoryCode", "catrgoryCode");
             article.setArticleCreatetime(currDate);
-            article.setArticleCreatecode(username);
+//            article.setArticleCreatecode(username);
             article.setArticleUniqueCode(GenerateSystemCodeUtils.obtainKeyDateSeqYMD("WZMK"));
             // 3.文章新增
             save(article);
             //TODO 标签与分类新增待处理
+            // 4.分类新增
+            CategoryReqDto categoryReqDto = articleReqDto.getCategoryReqDto();
+            logger.info("OpenFeign远程调用分类新增接口入参:{}", JSONObject.toJSONString(categoryReqDto));
+            ResponseDto responseDto = categoryFeignClient.saveOrUpdateCategory(categoryReqDto);
+            logger.info("OpenFeign远程调用分类新增接口返参:{}", JSONObject.toJSONString(responseDto));
+            CategoryRespDto categoryRespDto = null;
+            if (ResponseCode.SUCCESS.getCode().equals(responseDto.getCode())) {
+                categoryRespDto = (CategoryRespDto) responseDto.getData();
+            }
+            //TODO 文章与分类中间表暂未创建,待完成
         } else {
             // 更新操作
-            article.setArticleUpdatecode(username);
+//            article.setArticleUpdatecode(username);
             article.setArticleUpdatetim(currDate);
-            QueryWrapper<BlogArticle> queryWrapper=new QueryWrapper<>();
-            queryWrapper.eq("ARTICLE_UNIQUE_CODE",article.getArticleUniqueCode());
-            update(article,queryWrapper);
+            QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("ARTICLE_UNIQUE_CODE", article.getArticleUniqueCode());
+            update(article, queryWrapper);
             //TODO 标签与分类修改待处理
         }
     }
 
+    /**
+     * 删除文章
+     *
+     * @param articleReqDto
+     */
     @Override
     public void deleteArticle(ArticleReqDto articleReqDto) {
         blogArticleMapper.deleteArticle(articleReqDto);

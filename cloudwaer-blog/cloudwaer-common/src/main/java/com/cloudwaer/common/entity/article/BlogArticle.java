@@ -1,4 +1,4 @@
-package com.cloudwaer.common.entity;
+package com.cloudwaer.common.entity.article;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,5 +1,6 @@
-package com.cloudwaer.dto;
+package com.cloudwaer.common.dto.article;
 
+import com.cloudwaer.common.dto.category.CategoryRespDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -88,5 +89,5 @@ public class ArticleRespDto {
     /**
      * 文章分类
      */
-    private String catrgoryCode;
+    private CategoryRespDto categoryRespDto;
 }
