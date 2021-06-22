@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
+
 /**
  * @ClassName Test
  * @Description TODO
@@ -35,7 +36,7 @@ public class Test {
         //全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         //获取工程绝对路径,最好去项目文件夹里面找你的子模块的路径复制过来
-        globalConfig.setOutputDir("E:/wistronits/cloudwaer/cloudwaer-blog/src/main/java");
+        globalConfig.setOutputDir("E:/wistronits/cloudwaer/cloudwaer-blog/cloudwaer-category/src/main/java");
         //关闭文件夹
         globalConfig.setOpen(false);
         //设置作者
@@ -57,7 +58,7 @@ public class Test {
         autoGenerator.setPackageInfo(packageConfig);
         //配置策略
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("blog_article"); //要生成的表
+        strategyConfig.setInclude("blog_cartgory"); //要生成的表
         //自动添加lombokmodel注解
         strategyConfig.setEntityLombokModel(true);
         //设置驼峰名命

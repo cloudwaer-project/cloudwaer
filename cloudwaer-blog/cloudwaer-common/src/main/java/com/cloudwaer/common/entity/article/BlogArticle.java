@@ -1,11 +1,13 @@
 package com.cloudwaer.common.entity.article;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,17 +18,15 @@ import java.util.Date;
  * @author jiushiboy
  * @since 2021-06-07
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 public class BlogArticle implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     /**
      * 主键自增
      */
-    @TableId("ID")
-    private int id;
+    @TableId(value = "ID", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 文章唯一编号,发布文章时自动生成
@@ -52,6 +52,11 @@ public class BlogArticle implements Serializable {
     @TableField("ARTICLE_CONTENT")
     private String articleContent;
 
+    /**
+     * 文章标签的唯一编号 可以多个  以,分割
+     */
+    @TableField("ARTICLE_TAGS")
+    private String articleTags;
 
     /**
      * 是否开启评论 0关闭1开启
@@ -107,7 +112,141 @@ public class BlogArticle implements Serializable {
     @TableField("ARTICLE_ORDER")
     private Integer articleOrder;
 
+    /**
+     * 文章分类
+     */
+    @TableField("CATRGORY_CODE")
+    private String catrgoryCode;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getArticleUniqueCode() {
+        return articleUniqueCode;
+    }
+
+    public void setArticleUniqueCode(String articleUniqueCode) {
+        this.articleUniqueCode = articleUniqueCode;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    public String getArticleImage() {
+        return articleImage;
+    }
+
+    public void setArticleImage(String articleImage) {
+        this.articleImage = articleImage;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
+
+    public String getArticleTags() {
+        return articleTags;
+    }
+
+    public void setArticleTags(String articleTags) {
+        this.articleTags = articleTags;
+    }
+
+    public Boolean getArticleEnableComment() {
+        return articleEnableComment;
+    }
+
+    public void setArticleEnableComment(Boolean articleEnableComment) {
+        this.articleEnableComment = articleEnableComment;
+    }
+
+    public Integer getArticleViews() {
+        return articleViews;
+    }
+
+    public void setArticleViews(Integer articleViews) {
+        this.articleViews = articleViews;
+    }
+
+    public Date getArticleCreatetime() {
+        return articleCreatetime;
+    }
+
+    public void setArticleCreatetime(Date articleCreatetime) {
+        this.articleCreatetime = articleCreatetime;
+    }
+
+    public Integer getArticleDelflag() {
+        return articleDelflag;
+    }
+
+    public void setArticleDelflag(Integer articleDelflag) {
+        this.articleDelflag = articleDelflag;
+    }
+
+    public Date getArticleUpdatetim() {
+        return articleUpdatetim;
+    }
+
+    public void setArticleUpdatetim(Date articleUpdatetim) {
+        this.articleUpdatetim = articleUpdatetim;
+    }
+
+    public String getArticleCreatecode() {
+        return articleCreatecode;
+    }
+
+    public void setArticleCreatecode(String articleCreatecode) {
+        this.articleCreatecode = articleCreatecode;
+    }
+
+    public String getArticleUpdatecode() {
+        return articleUpdatecode;
+    }
+
+    public void setArticleUpdatecode(String articleUpdatecode) {
+        this.articleUpdatecode = articleUpdatecode;
+    }
+
+    public Integer getArticleHot() {
+        return articleHot;
+    }
+
+    public void setArticleHot(Integer articleHot) {
+        this.articleHot = articleHot;
+    }
+
+    public Integer getArticleOrder() {
+        return articleOrder;
+    }
+
+    public void setArticleOrder(Integer articleOrder) {
+        this.articleOrder = articleOrder;
+    }
+
+    public String getCatrgoryCode() {
+        return catrgoryCode;
+    }
+
+    public void setCatrgoryCode(String catrgoryCode) {
+        this.catrgoryCode = catrgoryCode;
+    }
 }

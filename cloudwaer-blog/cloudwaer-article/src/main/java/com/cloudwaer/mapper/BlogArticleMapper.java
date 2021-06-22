@@ -2,6 +2,7 @@ package com.cloudwaer.mapper;
 
 import com.cloudwaer.common.dto.article.ArticleReqDto;
 import com.cloudwaer.common.dto.article.ArticleRespDto;
+import com.cloudwaer.common.dto.category.CategoryRespDto;
 import com.cloudwaer.common.entity.article.BlogArticle;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloudwaer.entity.Dept;

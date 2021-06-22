@@ -53,6 +53,7 @@ public class ArticleController {
 
     /**
      * 新增和更新文章
+     *
      * @param articleReqDto
      * @return
      */
@@ -65,14 +66,17 @@ public class ArticleController {
         } catch (ParamsException e) {
             logger.info("添加文章接口参数异常:{}", e);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.PARAMS_ERROR, e.getMsg());
+        } catch (RuntimeException re) {
+            logger.info("添加文章接口运行时异常:{}", re);
+            return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR, re.getMessage());
         } catch (Exception e) {
             logger.info("添加文章接口异常:{}", e);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR);
         }
     }
 
-    @RequestMapping(value = "/deleteArticle",method = RequestMethod.POST)
-    public ResponseDto deleteArticle(@RequestBody ArticleReqDto articleReqDto){
+    @RequestMapping(value = "/deleteArticle", method = RequestMethod.POST)
+    public ResponseDto deleteArticle(@RequestBody ArticleReqDto articleReqDto) {
         try {
             logger.info("删除文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));
             blogArticleService.deleteArticle(articleReqDto);
@@ -88,11 +92,6 @@ public class ArticleController {
 
     @Resource
     private CategoryFeignClient categoryFeignClient;
-
-    @GetMapping("/test")
-    public ResponseDto test(){
-        return ResponseUtils.buildVoByResponseCode(ResponseCode.SUCCESS,categoryFeignClient.queryAllCategory());
-    }
 
     /*@Autowired
     private BlogArticleMapper blogArticleMapper;

@@ -14,7 +14,6 @@ import com.cloudwaer.common.utils.PageModel;
 import com.cloudwaer.common.utils.ParamUtils;
 import com.cloudwaer.common.dto.article.ArticleReqDto;
 import com.cloudwaer.common.dto.article.ArticleRespDto;
-import com.cloudwaer.controller.ArticleController;
 import com.cloudwaer.mapper.BlogArticleMapper;
 import com.cloudwaer.service.BlogArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,7 +49,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Resource
     private CategoryFeignClient categoryFeignClient;
 
-    /**
+       /**
      * 查询文章列表
      *
      * @param articleReqDto
@@ -97,23 +96,26 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         // 传入参数文章唯一编号为空则做增加操作
         if (StringUtils.isEmpty(articleReqDto.getArticleUniqueCode())) {
             // 1.参数校验
-            ParamUtils.isParamsNotNull(articleReqDto, "articleTitle", "articleTags", "catrgoryCode", "catrgoryCode");
+            ParamUtils.isParamsNotNull(articleReqDto, "articleTitle");
             article.setArticleCreatetime(currDate);
 //            article.setArticleCreatecode(username);
             article.setArticleUniqueCode(GenerateSystemCodeUtils.obtainKeyDateSeqYMD("WZMK"));
-            // 3.文章新增
-            save(article);
-            //TODO 标签与分类新增待处理
-            // 4.分类新增
+            // 3.分类新增
             CategoryReqDto categoryReqDto = articleReqDto.getCategoryReqDto();
             logger.info("OpenFeign远程调用分类新增接口入参:{}", JSONObject.toJSONString(categoryReqDto));
             ResponseDto responseDto = categoryFeignClient.saveOrUpdateCategory(categoryReqDto);
             logger.info("OpenFeign远程调用分类新增接口返参:{}", JSONObject.toJSONString(responseDto));
             CategoryRespDto categoryRespDto = null;
-            if (ResponseCode.SUCCESS.getCode().equals(responseDto.getCode())) {
-                categoryRespDto = (CategoryRespDto) responseDto.getData();
+            if (!ResponseCode.SUCCESS.getCode().equals(responseDto.getCode())) {
+                throw new RuntimeException(responseDto.getData().toString());
             }
-            //TODO 文章与分类中间表暂未创建,待完成
+            // 4.文章与分类绑定关系
+            categoryRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), CategoryRespDto.class);
+            article.setCatrgoryCode(categoryRespDto.getCategoryCode());
+            // 5.文章新增
+            save(article);
+
+            //TODO 分类新增待处理
         } else {
             // 更新操作
 //            article.setArticleUpdatecode(username);
