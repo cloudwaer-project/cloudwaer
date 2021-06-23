@@ -60,7 +60,7 @@ public class ArticleController {
     @RequestMapping(value = "/saveOrUpdateArticle", method = RequestMethod.POST)
     public ResponseDto saveOrUpdateArticle(@RequestBody ArticleReqDto articleReqDto) {
         try {
-            logger.info("添加文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));
+            logger.info("添加文章接口入参:{}", JSONObject.toJSONString(articleReqDto));
             blogArticleService.saveArticle(articleReqDto);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.SUCCESS);
         } catch (ParamsException e) {

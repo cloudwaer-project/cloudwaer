@@ -1,9 +1,9 @@
 server:
-  port: 9998
+  port: 9996
 
 spring:
   application:
-    name: cloudwaer-article
+    name: cloudwaer-tags
   cloud:
     nacos:
       discovery:

@@ -3,10 +3,13 @@ package com.cloudwaer.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloudwaer.channel.category.CategoryFeignClient;
+import com.cloudwaer.channel.tags.LabelFeignClient;
 import com.cloudwaer.common.dto.ResponseCode;
 import com.cloudwaer.common.dto.ResponseDto;
 import com.cloudwaer.common.dto.category.CategoryReqDto;
 import com.cloudwaer.common.dto.category.CategoryRespDto;
+import com.cloudwaer.common.dto.tags.LabelReqDto;
+import com.cloudwaer.common.dto.tags.LabelRespDto;
 import com.cloudwaer.common.entity.article.BlogArticle;
 import com.cloudwaer.common.utils.DateTimeUtil;
 import com.cloudwaer.common.utils.GenerateSystemCodeUtils;
@@ -49,7 +52,10 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Resource
     private CategoryFeignClient categoryFeignClient;
 
-       /**
+    @Resource
+    private LabelFeignClient labelFeignClient;
+
+    /**
      * 查询文章列表
      *
      * @param articleReqDto
@@ -112,10 +118,18 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             // 4.文章与分类绑定关系
             categoryRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), CategoryRespDto.class);
             article.setCatrgoryCode(categoryRespDto.getCategoryCode());
-            // 5.文章新增
-            save(article);
 
-            //TODO 分类新增待处理
+
+            //5. 标签新增
+            List<LabelReqDto> labelReqDtos = articleReqDto.getLabelReqDtos();
+            logger.info("OpenFeign远程调用标签新增接口入参:{}", JSONObject.toJSONString(labelReqDtos));
+            responseDto = labelFeignClient.saveOrUpdateCategory(labelReqDtos);
+            logger.info("OpenFeign远程调用标签新增接口返参:{}", JSONObject.toJSONString(responseDto));
+            LabelRespDto labelRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), LabelRespDto.class);
+            article.setArticleTags(labelRespDto.getLabelCode());
+            // 6.文章新增
+            logger.info("文章新增接口总入参:{}",article);
+            save(article);
         } else {
             // 更新操作
 //            article.setArticleUpdatecode(username);

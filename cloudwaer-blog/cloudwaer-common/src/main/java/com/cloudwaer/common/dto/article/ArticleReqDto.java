@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.cloudwaer.common.dto.PageVo;
 import com.cloudwaer.common.dto.category.CategoryReqDto;
+import com.cloudwaer.common.dto.tags.LabelReqDto;
 import com.cloudwaer.common.entity.category.BlogCartgory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -49,9 +50,9 @@ public class ArticleReqDto extends PageVo {
     private String articleContent;
 
     /**
-     * 文章标签的唯一编号
+     * 文章数据
      */
-    private List<String> articleTags;
+    private List<LabelReqDto> labelReqDtos;
 
     /**
      * 是否开启评论 0关闭1开启
