@@ -11,6 +11,7 @@ import com.cloudwaer.common.dto.category.CategoryRespDto;
 import com.cloudwaer.common.dto.tags.LabelReqDto;
 import com.cloudwaer.common.dto.tags.LabelRespDto;
 import com.cloudwaer.common.entity.article.BlogArticle;
+import com.cloudwaer.common.exception.BusinessException;
 import com.cloudwaer.common.utils.DateTimeUtil;
 import com.cloudwaer.common.utils.GenerateSystemCodeUtils;
 import com.cloudwaer.common.utils.PageModel;
@@ -113,9 +114,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             ResponseDto responseDto = categoryFeignClient.saveOrUpdateCategory(categoryReqDto);
             logger.info("OpenFeign远程调用分类新增接口返参:{}", JSONObject.toJSONString(responseDto));
             CategoryRespDto categoryRespDto = null;
-            if (!ResponseCode.SUCCESS.getCode().equals(responseDto.getCode())) {
-                throw new RuntimeException(responseDto.getData().toString());
-            }
+
             // 4.文章与分类绑定关系
             categoryRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), CategoryRespDto.class);
             article.setCatrgoryCode(categoryRespDto.getCategoryCode());
@@ -134,20 +133,25 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         } else {
             // 更新操作
 //            article.setArticleUpdatecode(username);
-            article.setArticleUpdatetim(currDate);
-            QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("ARTICLE_UNIQUE_CODE", article.getArticleUniqueCode());
-            update(article, queryWrapper);
+
             // 7.标签与分类修改
             CategoryReqDto categoryReqDto = articleReqDto.getCategoryReqDto();
             logger.info("OpenFeign远程调用分类修改接口入参:{}", JSONObject.toJSONString(categoryReqDto));
             ResponseDto responseDto = categoryFeignClient.saveOrUpdateCategory(categoryReqDto);
             logger.info("OpenFeign远程调用分类修改接口返参:{}", JSONObject.toJSONString(responseDto));
+            if (!ResponseCode.SUCCESS.getCode().equals(responseDto.getCode())) {
+                throw new BusinessException(ResponseCode.QUERY_CATEGORY_EXIST);
+            }
 
             List<LabelReqDto> labelReqDtos = articleReqDto.getLabelReqDtos();
             logger.info("OpenFeign远程调用标签新增接口入参:{}", JSONObject.toJSONString(labelReqDtos));
             responseDto = labelFeignClient.saveOrUpdateLabel(labelReqDtos);
             logger.info("OpenFeign远程调用标签新增接口返参:{}", JSONObject.toJSONString(responseDto));
+
+            article.setArticleUpdatetim(currDate);
+            QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("ARTICLE_UNIQUE_CODE", article.getArticleUniqueCode());
+            update(article, queryWrapper);
         }
     }
 

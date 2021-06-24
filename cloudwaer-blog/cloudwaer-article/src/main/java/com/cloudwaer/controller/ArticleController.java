@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloudwaer.channel.category.CategoryFeignClient;
 import com.cloudwaer.common.dto.ResponseCode;
 import com.cloudwaer.common.dto.ResponseDto;
+import com.cloudwaer.common.exception.BusinessException;
 import com.cloudwaer.common.exception.ParamsException;
 import com.cloudwaer.common.utils.PageModel;
 import com.cloudwaer.common.utils.ResponseUtils;
@@ -66,9 +67,9 @@ public class ArticleController {
         } catch (ParamsException e) {
             logger.info("添加文章接口参数异常:{}", e);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.PARAMS_ERROR, e.getMsg());
-        } catch (RuntimeException re) {
-            logger.info("添加文章接口运行时异常:{}", re);
-            return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR, re.getMessage());
+        } catch (BusinessException be) {
+            logger.info("添加文章接口业务异常:{}", be);
+            return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR, be.getResponseCode().getMsg());
         } catch (Exception e) {
             logger.info("添加文章接口异常:{}", e);
             return ResponseUtils.buildVoByResponseCode(ResponseCode.ERROR);
