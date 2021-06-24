@@ -24,5 +24,5 @@ import java.util.List;
 public interface LabelFeignClient {
 
     @PostMapping("/blogLabel/saveOrUpdateLabel")
-    public ResponseDto saveOrUpdateCategory(@RequestBody List<LabelReqDto> labelReqDtos);
+    public ResponseDto saveOrUpdateLabel(@RequestBody List<LabelReqDto> labelReqDtos);
 }

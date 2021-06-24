@@ -97,6 +97,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     public void saveArticle(ArticleReqDto articleReqDto) {
         // 参数转换
         BlogArticle article = this.ArticleReqDtoToBlogArticle(articleReqDto);
+        //TODO 鉴权服务在我本地已经关闭,因为如果不关闭远程调用会出现认证错误401 需要等待后期我去配置
 //        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Date currDate = DateTimeUtil.getCurrDate();
         // 传入参数文章唯一编号为空则做增加操作
@@ -123,12 +124,12 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             //5. 标签新增
             List<LabelReqDto> labelReqDtos = articleReqDto.getLabelReqDtos();
             logger.info("OpenFeign远程调用标签新增接口入参:{}", JSONObject.toJSONString(labelReqDtos));
-            responseDto = labelFeignClient.saveOrUpdateCategory(labelReqDtos);
+            responseDto = labelFeignClient.saveOrUpdateLabel(labelReqDtos);
             logger.info("OpenFeign远程调用标签新增接口返参:{}", JSONObject.toJSONString(responseDto));
             LabelRespDto labelRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), LabelRespDto.class);
             article.setArticleTags(labelRespDto.getLabelCode());
             // 6.文章新增
-            logger.info("文章新增接口总入参:{}",article);
+            logger.info("文章新增接口最终入参:{}",article);
             save(article);
         } else {
             // 更新操作
@@ -137,7 +138,16 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("ARTICLE_UNIQUE_CODE", article.getArticleUniqueCode());
             update(article, queryWrapper);
-            //TODO 标签与分类修改待处理
+            // 7.标签与分类修改
+            CategoryReqDto categoryReqDto = articleReqDto.getCategoryReqDto();
+            logger.info("OpenFeign远程调用分类修改接口入参:{}", JSONObject.toJSONString(categoryReqDto));
+            ResponseDto responseDto = categoryFeignClient.saveOrUpdateCategory(categoryReqDto);
+            logger.info("OpenFeign远程调用分类修改接口返参:{}", JSONObject.toJSONString(responseDto));
+
+            List<LabelReqDto> labelReqDtos = articleReqDto.getLabelReqDtos();
+            logger.info("OpenFeign远程调用标签新增接口入参:{}", JSONObject.toJSONString(labelReqDtos));
+            responseDto = labelFeignClient.saveOrUpdateLabel(labelReqDtos);
+            logger.info("OpenFeign远程调用标签新增接口返参:{}", JSONObject.toJSONString(responseDto));
         }
     }
 
