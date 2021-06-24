@@ -1,6 +1,6 @@
 package com.cloudwaer.common.jiushiboy.config.resource;
 
-import org.springframework.context.annotation.Bean;
+/*import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.util.FileCopyUtils;
+import org.springframework.util.FileCopyUtils;*/
 
 /**
  * @ClassName ResourceConfig
@@ -20,6 +20,7 @@ import org.springframework.util.FileCopyUtils;
  * @Date 2021/6/11 15:22
  * @Version 1.0
  **/
+/*
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
@@ -47,12 +48,14 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .and().headers().cacheControl();
     }
 
-    /**
+    */
+/**
      * 设置公钥
      *
      * @param resources
      * @throws Exception
-     */
+     *//*
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(jwtTokenStore());
@@ -80,3 +83,4 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
         return tokenConverter;
     }
 }
+*/

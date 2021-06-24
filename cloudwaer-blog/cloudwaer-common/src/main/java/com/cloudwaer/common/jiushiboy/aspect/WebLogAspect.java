@@ -1,6 +1,6 @@
 package com.cloudwaer.common.jiushiboy.aspect;
 
-import cn.hutool.core.util.StrUtil;
+/*import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.cloudwaer.common.entity.WebLog;
@@ -21,7 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.HashMap;
+import java.util.HashMap;*/
 
 /**
  * @ClassName WebLogAspect    @Order 设置1 意思为当有多个切面起一个执行
@@ -30,26 +30,33 @@ import java.util.HashMap;
  * @Date 2021/6/11 16:02
  * @Version 1.0
  **/
+/*
 
 @Component
 @Aspect
 @Order(1)
 @Slf4j
 public class WebLogAspect {
-    /**
+    */
+/**
      * 日志记录 --->  环绕通知: 方法执行之前,方法执行之后
-     */
+     *//*
 
-    /**
+
+    */
+/**
      * 定义切入点
-     */
+     *//*
+
     @Pointcut("execution(* com.cloudwaer.controller.*.*(..))")
     public void webLog() {
     }
 
-    /**
+    */
+/**
      * 环绕通知
-     */
+     *//*
+
 //    @Around("webLog()")
     public Object recodeWebLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = null;
@@ -97,12 +104,14 @@ public class WebLogAspect {
         return result;
     }
 
-    /**
+    */
+/**
      * 获取方法执行参数
      * @param method
      * @param args
      * @return
-     */
+     *//*
+
     private Object getMethodParamter(Method method, Object[] args) {
         HashMap<String, Object> methodParamterWithValue = new HashMap<>();
         LocalVariableTableParameterNameDiscoverer localVariableTableParameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
@@ -116,3 +125,4 @@ public class WebLogAspect {
 
 
 }
+*/
