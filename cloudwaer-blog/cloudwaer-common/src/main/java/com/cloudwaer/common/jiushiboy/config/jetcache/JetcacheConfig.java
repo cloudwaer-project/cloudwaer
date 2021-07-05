@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 @EnableCreateCacheAnnotation
-@EnableMethodCache(basePackages = "com.cloudwaer.service.impl")
+@EnableMethodCache(basePackages = "com.com.cloudwaer.service.impl")
 public class JetcacheConfig {
 
 }

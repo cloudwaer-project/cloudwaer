@@ -1,0 +1,11 @@
+spring:
+  application:  # 应用名称
+    name: admin-service
+  profiles:  #切换到dev开发环境上面
+    active: dev
+  cloud:
+    nacos:  #配置Nacos的地址
+      server-addr: 8.140.135.147:8848
+      config:  # 配置文件的扩展名
+        file-extension: yaml
+# 拉取的配置文件dateId=admin-service-dev.yaml

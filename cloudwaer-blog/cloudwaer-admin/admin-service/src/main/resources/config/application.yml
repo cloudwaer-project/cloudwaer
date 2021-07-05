@@ -1,0 +1,11 @@
+server:
+  port: 9995
+
+spring:
+  application:
+    name: cloudwaer-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.135.147:8848
+

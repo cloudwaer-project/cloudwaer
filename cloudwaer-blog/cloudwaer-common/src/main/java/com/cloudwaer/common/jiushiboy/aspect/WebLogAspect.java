@@ -48,7 +48,7 @@ public class WebLogAspect {
      * 定义切入点
      *//*
 
-    @Pointcut("execution(* com.cloudwaer.controller.*.*(..))")
+    @Pointcut("execution(* com.com.cloudwaer.controller.*.*(..))")
     public void webLog() {
     }
 

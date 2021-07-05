@@ -15,6 +15,7 @@
         <module>cloudwaer-comment</module>
         <module>cloudwaer-category</module>
         <module>cloudwaer-tags</module>
+        <module>cloudwaer-admin</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
