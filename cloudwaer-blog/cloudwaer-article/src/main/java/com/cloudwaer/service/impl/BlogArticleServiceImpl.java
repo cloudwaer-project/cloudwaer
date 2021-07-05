@@ -2,6 +2,7 @@ package com.cloudwaer.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.cloudwaer.channel.category.CategoryFeignClient;
 import com.cloudwaer.channel.tags.LabelFeignClient;
 import com.cloudwaer.common.dto.ResponseCode;
@@ -25,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,7 +101,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         // 参数转换
         BlogArticle article = this.ArticleReqDtoToBlogArticle(articleReqDto);
         //TODO 鉴权服务在我本地已经关闭,因为如果不关闭远程调用会出现认证错误401 需要等待后期我去配置
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Date currDate = DateTimeUtil.getCurrDate();
         // 传入参数文章唯一编号为空则做增加操作
         if (StringUtils.isEmpty(articleReqDto.getArticleUniqueCode())) {
@@ -128,7 +130,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             LabelRespDto labelRespDto = JSONObject.parseObject(JSONObject.toJSONString(responseDto.getData()), LabelRespDto.class);
             article.setArticleTags(labelRespDto.getLabelCode());
             // 6.文章新增
-            logger.info("文章新增接口最终入参:{}",article);
+            logger.info("文章新增接口最终入参:{}", article);
             save(article);
         } else {
             // 更新操作
@@ -188,6 +190,5 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         blogArticle.setArticleViews(articleReqDto.getArticleViews());
         return blogArticle;
     }
-
 
 }

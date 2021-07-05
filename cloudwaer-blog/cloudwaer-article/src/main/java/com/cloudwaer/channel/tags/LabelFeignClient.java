@@ -20,7 +20,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Component
-@FeignClient(value = "cloudwaer-tags",url = "localhost:9996/")
+@FeignClient(value = "cloudwaer-tags")
 public interface LabelFeignClient {
 
     @PostMapping("/blogLabel/saveOrUpdateLabel")

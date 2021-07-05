@@ -17,8 +17,7 @@ import java.util.List;
  * @Date 2021/6/22 13:51
  * @Version 1.0
  **/
-@Component
-@FeignClient(value = "cloudwaer-category",url = "localhost:9997/")
+@FeignClient(value = "cloudwaer-category")
 public interface CategoryFeignClient {
     @RequestMapping(value = "/blogCartgory/queryAllCategory", method = RequestMethod.POST)
     public ResponseDto queryAllCategory();
