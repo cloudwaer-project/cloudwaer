@@ -14,7 +14,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan(value = {"com.com.cloudwaer.mapper"})
+@MapperScan(value = {"com.cloudwaer.mapper"})
 public class CategoryApplicationRun {
     public static void main(String[] args) {
         SpringApplication.run(CategoryApplicationRun.class, args);

@@ -9,3 +9,5 @@ spring:
       discovery:
         server-addr: 8.140.135.147:8848
 
+basic:
+  token: Basic Y2xvdWR3YWVyLWFwaTpjbG91ZHdhZXItc2VjcmV0

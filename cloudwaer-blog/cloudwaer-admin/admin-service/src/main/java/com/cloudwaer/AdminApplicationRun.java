@@ -15,7 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan(basePackages = {"com.cloudwaer.mapper"})
+@MapperScan("com.cloudwaer.mapper")
 @EnableFeignClients
 public class AdminApplicationRun {
     public static void main(String[] args) {

@@ -41,7 +41,7 @@ public class SysLoginServiceImpl implements SysLoginService {
     @Resource
     private SysMenuService sysMenuService;
 
-    @Value("${basic.token:Basic Y29pbi1hcGk6Y29pbi1zZWNyZXQ=}")
+    @Value("${basic.token:Basic Y2xvdWR3YWVyLWFwaTpjbG91ZHdhZXItc2VjcmV0}")
     private String basicToken;
 
     /**

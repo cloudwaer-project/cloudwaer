@@ -65,11 +65,11 @@ public class UserServiceDetailsServiceImpl implements UserDetailsService {
         try {
 
             // 判断是否是 refresh token的登录方式
- /*            String grantType = requestAttributes.getRequest().getParameter("grant_type");
+             String grantType = requestAttributes.getRequest().getParameter("grant_type");
            if (LoginConstant.LoginTyoe.REFRESH_TOKEN.equals(grantType)) {
                 // 为什么要多此一举的改用户的名称,因为 refresh中需要存入的用户名是真正的用户名,而我在管理员和会员登录中取的列是ID列来代替用户名
                 username = adjustUsername(username, loginType);
-            }*/
+            }
             switch (loginType) {
                 case LoginConstant.LoginTyoe.ADMIN_TYPE:
                     userDetails = loadAdminByUsername(username);
@@ -99,11 +99,11 @@ public class UserServiceDetailsServiceImpl implements UserDetailsService {
                 if (rs.wasNull()) {
                     throw new UsernameNotFoundException("用户名" + username + "不存在");
                 }
-                String username = rs.getString("username");//会员名称
+                long id = rs.getLong("id");//会员名称
                 String password = rs.getString("password");//会员的密码
                 int status = rs.getInt("status"); //会员状态
                 return new User(
-                        username,
+                        String.valueOf(id),
                         password,
                         status == 1,
                         true,
@@ -132,7 +132,7 @@ public class UserServiceDetailsServiceImpl implements UserDetailsService {
                 String password = rs.getString("password");//管理员密码
                 int status = rs.getInt("status"); //停用状态 1 代表正常 0代表停用
                 return new User(
-                        username,
+                        String.valueOf(id),
                         password,
                         status == 1,
                         true,
@@ -174,7 +174,7 @@ public class UserServiceDetailsServiceImpl implements UserDetailsService {
      * @param loginType
      * @return
      */
-   /* private String adjustUsername(String username, String loginType) {
+    private String adjustUsername(String username, String loginType) {
         if (LoginConstant.LoginTyoe.ADMIN_TYPE.equals(loginType)) {
             return jdbcTemplate.queryForObject(LoginConstant.LoginInfoSQL.QUERY_ADMIN_WHERE_USERNAME_BY_ID, String.class, username);
         }
@@ -183,5 +183,5 @@ public class UserServiceDetailsServiceImpl implements UserDetailsService {
         }
         // 如果都没查到默认返回传入的username
         return username;
-    }*/
+    }
 }

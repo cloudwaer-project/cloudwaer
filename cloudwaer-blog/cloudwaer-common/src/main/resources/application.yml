@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 swagger2:
-  basePackage: com.com.cloudwaer.controller
+  basePackage: com.cloudwaer.controller
   name: cloudwaer
   url: https://github.com/jiushiboy
   email: 1450495810@qq.com
