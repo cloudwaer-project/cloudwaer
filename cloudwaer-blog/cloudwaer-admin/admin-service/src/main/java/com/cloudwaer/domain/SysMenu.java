@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
     * 系统菜单
@@ -111,4 +112,8 @@ public class SysMenu {
     @TableField(value = "last_update_time")
     @ApiModelProperty(value="修改时间")
     private Date lastUpdateTime;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "子节点菜单数据")
+    private List<SysMenu> childMenus;
 }

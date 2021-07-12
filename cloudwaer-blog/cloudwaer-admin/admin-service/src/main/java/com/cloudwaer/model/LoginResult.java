@@ -38,6 +38,20 @@ public class LoginResult {
     @ApiModelProperty(value = "用户权限")
     private List<SimpleGrantedAuthority> authorities;
 
+    /**
+     * 用户编号
+     */
+    @ApiModelProperty(value = "用户编号")
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getToken() {
         return token;
     }
