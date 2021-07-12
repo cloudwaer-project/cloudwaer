@@ -1,5 +1,6 @@
 package com.cloudwaer.service.impl;
 
+import com.cloudwaer.constant.CommonConstant;
 import com.cloudwaer.domain.SysRole;
 import com.cloudwaer.mapper.SysRoleMapper;
 import com.cloudwaer.service.SysRoleService;
@@ -19,7 +20,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public boolean isSuperAdmin(Long userId) {
         // 当用户角色code为 ROLE_ADMIN 则管理员拥有超级管理员权限
         String roleCode = sysRoleMapper.getUserRoleCode(userId);
-        if (StringUtils.isNotEmpty(roleCode) && "ROLE_ADMIN".equals(roleCode)) {
+        if (StringUtils.isNotEmpty(roleCode) && CommonConstant.RoleType.ADMIN.equals(roleCode)) {
             return true;
         }
         return false;

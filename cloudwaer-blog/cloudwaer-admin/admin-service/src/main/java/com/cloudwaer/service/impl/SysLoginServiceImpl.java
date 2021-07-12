@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * @ClassName SysLoginServiceImpl
- * @Description TODO
+ * @Description 后台管理登录处理
  * @Author jiushiboy
  * @Date 2021/7/5 15:40
  * @Version 1.0
@@ -98,6 +98,11 @@ public class SysLoginServiceImpl implements SysLoginService {
         return loginResult;
     }
 
+    /**
+     * 处理菜单数据
+     * @param menus
+     * @return
+     */
     private List<SysMenu> disposeMenus(List<SysMenu> menus) {
         // 0. 传入的集合为空直接返回null
         if (CollectionUtils.isEmpty(menus)) {
@@ -118,6 +123,12 @@ public class SysLoginServiceImpl implements SysLoginService {
         return result;
     }
 
+    /**
+     * 递归查询子菜单数据
+     * @param id
+     * @param menus
+     * @return
+     */
     private List<SysMenu> queryChildMenus(Long id, List<SysMenu> menus) {
         // 1. 定义子菜单数据返回结果
         List<SysMenu> childMenus = Lists.newArrayList();

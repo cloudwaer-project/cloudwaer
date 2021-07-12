@@ -19,9 +19,20 @@ import java.util.List;
  **/
 @FeignClient(value = "cloudwaer-category")
 public interface CategoryFeignClient {
+    /**
+     * @description: 查询所有分类
+     * @author wenchang
+     * @date 2021/7/12 16:54
+     * @version 1.0
+     */
     @RequestMapping(value = "/blogCartgory/queryAllCategory", method = RequestMethod.POST)
     public ResponseDto queryAllCategory();
-
+    /**
+     * @description: 保存与修改分类接口
+     * @author wenchang
+     * @date 2021/7/12 16:54
+     * @version 1.0
+     */
     @RequestMapping(value = "/blogCartgory/saveOrUpdateCategory", method = RequestMethod.POST)
     public ResponseDto saveOrUpdateCategory(@RequestBody CategoryReqDto categoryReqDto);
 }

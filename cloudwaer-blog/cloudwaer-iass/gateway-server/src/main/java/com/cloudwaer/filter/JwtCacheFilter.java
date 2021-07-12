@@ -46,7 +46,8 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 1.接口是否需要token才能访问
         if (!isRequiredToken(exchange)) {
-            return chain.filter(exchange); //不需要token直接放行
+            //不需要token直接放行
+            return chain.filter(exchange);
         }
         // 2.取出用户token
         String token = getUserToken(exchange);
@@ -56,7 +57,8 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
         }
         Boolean hashKey = redisTemplate.hasKey(token);
         if (null != hashKey && hashKey) {
-            return chain.filter(exchange); //token 有效直接放行
+            //token 有效直接放行
+            return chain.filter(exchange);
         }
         return buildNoAuthorizationResult(exchange);
     }
@@ -97,7 +99,8 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         Set<String> noRequiredTokenUris = gatewayUrlConfig.getUrls();
         if (noRequiredTokenUris.contains(path)) {
-            return false; //不需要token返回false
+            //不需要token返回false
+            return false;
         }
         return Boolean.TRUE;
     }

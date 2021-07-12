@@ -77,6 +77,7 @@ public class ErrorException extends RuntimeException {
         this.errorMsg = errorMsg;
     }
 
+    @Override
     public String getMessage() {
         return errorMsg;
     }

@@ -49,12 +49,19 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("cloudwaer-api") //第三方客户端
-                .secret(passwordEncoder.encode("cloudwaer-secret")) //第三方客户端秘钥
-                .scopes("all") //第三方授权范围
-                .authorizedGrantTypes("password", "refresh_token") //授权模式
-                .accessTokenValiditySeconds(7 * 24 * 3600)  // token一个星期过期
-                .refreshTokenValiditySeconds(30 * 24 * 3600) //refresh token 一个月过期
+        clients.inMemory()
+                //第三方客户端
+                .withClient("cloudwaer-api")
+                //第三方客户端秘钥
+                .secret(passwordEncoder.encode("cloudwaer-secret"))
+                //第三方授权范围
+                .scopes("all")
+                //授权模式
+                .authorizedGrantTypes("password", "refresh_token")
+                // token一个星期过期
+                .accessTokenValiditySeconds(7 * 24 * 3600)
+                //refresh token 一个月过期
+                .refreshTokenValiditySeconds(30 * 24 * 3600)
                 .and()
                 .withClient("inside-app")
                 .secret(passwordEncoder.encode("inside-secret"))
