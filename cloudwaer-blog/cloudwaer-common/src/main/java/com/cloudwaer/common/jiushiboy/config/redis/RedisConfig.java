@@ -1,5 +1,6 @@
 package com.cloudwaer.common.jiushiboy.config.redis;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +19,7 @@ public class RedisConfig {
     /**
      * RedisTemplate
      */
+    @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> stringObjectRedisTemplate = new RedisTemplate<>();
         stringObjectRedisTemplate.setConnectionFactory(redisConnectionFactory);

@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: cloudwaer-admin
+    name: admin-service
   cloud:
     nacos:
       discovery:
         server-addr: 8.140.135.147:8848
-
+# 通过 authorization-server 设置的第三方客户端生成的字符串,带着这个相当于第三方客户端访问系统 目前
 basic:
   token: Basic Y2xvdWR3YWVyLWFwaTpjbG91ZHdhZXItc2VjcmV0

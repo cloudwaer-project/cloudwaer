@@ -36,7 +36,7 @@ public class ArticleController {
     @Resource
     private BlogArticleService blogArticleService;
 
-    @RequestMapping(value = "/queryArticleList", method = RequestMethod.POST)
+    @GetMapping(value = "/queryArticleList")
     public ResponseDto queryArticleList(@RequestBody ArticleReqDto articleReqDto) {
         try {
             logger.info("查询文章列表接口入参:{}", JSONObject.toJSONString(articleReqDto));

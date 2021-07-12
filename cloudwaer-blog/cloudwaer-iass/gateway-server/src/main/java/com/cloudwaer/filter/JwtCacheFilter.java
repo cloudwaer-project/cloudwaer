@@ -84,7 +84,7 @@ public class JwtCacheFilter implements GlobalFilter, Ordered {
      */
     private String getUserToken(ServerWebExchange exchange) {
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        return token == null ? null : token.replace("bearer", "");
+        return token == null ? null : token.replace("bearer ", "");
     }
 
     /**

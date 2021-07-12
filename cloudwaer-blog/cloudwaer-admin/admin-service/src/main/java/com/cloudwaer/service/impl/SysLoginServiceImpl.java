@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +46,9 @@ public class SysLoginServiceImpl implements SysLoginService {
     @Value("${basic.token:Basic Y2xvdWR3YWVyLWFwaTpjbG91ZHdhZXItc2VjcmV0}")
     private String basicToken;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
     /**
      * 登录实现
      *
@@ -60,10 +65,11 @@ public class SysLoginServiceImpl implements SysLoginService {
             throw new ApiException(ApiErrorCode.FAILED);
         }
         JwtToken jwtToken = result.getBody();
+        String token = jwtToken.getAccessToken();
         log.info("token接口返回参数:{}", JSONObject.toJSONString(jwtToken));
 
         // 2.获取用户菜单数据
-        Jwt jwt = JwtHelper.decode(jwtToken.getAccessToken());
+        Jwt jwt = JwtHelper.decode(token);
         String jwtJson = jwt.getClaims();
         JSONObject jsonObject = JSONObject.parseObject(jwtJson);
         Long userId = Long.valueOf(jsonObject.getString("user_name"));
@@ -72,7 +78,7 @@ public class SysLoginServiceImpl implements SysLoginService {
         // 3.获取用户权限数据
         JSONArray authorities = jsonObject.getJSONArray("authorities");
         LoginResult loginResult = new LoginResult();
-        loginResult.setToken(jwtToken.getAccessToken());
+        loginResult.setToken(jwtToken.getTokenType()+" "+token  );
         loginResult.setMenus(menus);
         loginResult.setAuthorities(
                 authorities.
@@ -81,6 +87,8 @@ public class SysLoginServiceImpl implements SysLoginService {
                         collect(Collectors.toList())
         );
         log.info("登录接口返参:{}", JSONObject.toJSONString(loginResult));
+        // 将token存入到redis缓存
+        redisTemplate.opsForValue().set(token,"",jwtToken.getExpiresIn(), TimeUnit.SECONDS);
         return loginResult;
     }
 }
