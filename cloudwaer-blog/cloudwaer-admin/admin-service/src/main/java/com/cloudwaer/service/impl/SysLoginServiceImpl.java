@@ -1,6 +1,9 @@
 package com.cloudwaer.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.cloudwaer.common.dto.ResponseCode;
+import com.cloudwaer.common.exception.ParamsException;
+import com.cloudwaer.common.utils.ParamUtils;
 import com.cloudwaer.domain.SysMenu;
 import com.cloudwaer.feign.JwtToken;
 import com.cloudwaer.feign.OAuth2FeignClient;
@@ -14,6 +17,7 @@ import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -61,7 +65,11 @@ public class SysLoginServiceImpl implements SysLoginService {
      */
     @Override
     public LoginResult login(String username, String password) {
-        log.info("登录接口入参:{}", username, password);
+        // 0.参数校验
+        if (StringUtils.isEmpty(username) && StringUtils.isEmpty(password)) {
+            throw new ParamsException(ResponseCode.PARAMS_ERROR,"账号或密码为空","username","password");
+        }
+        log.info("登录接口入参:{}", username);
         // 1.获取token,远程调用服务获取token
         ResponseEntity<JwtToken> result = auth2FeignClient.getToken("password", username, password, "admin_type", basicToken);
         if (result.getStatusCode() != HttpStatus.OK) {
