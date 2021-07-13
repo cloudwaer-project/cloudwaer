@@ -1,0 +1,9 @@
+server:
+  port: 9994
+spring:
+  application:
+    name: cloudwaer-link
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.140.135.147:8848
