@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ import javax.annotation.Resource;
  **/
 @RestController
 @Api(value = "登录控制器")
+@CrossOrigin
 public class SysLoginController {
     private Logger logger = LoggerFactory.getLogger(SysLoginController.class);
 

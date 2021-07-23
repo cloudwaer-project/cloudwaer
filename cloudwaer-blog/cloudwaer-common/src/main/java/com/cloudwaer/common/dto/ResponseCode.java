@@ -11,9 +11,9 @@ public enum ResponseCode {
     SUCCESS("100000", "处理成功", true),
     ERROR("100001", "处理失败", false),
     PARAMS_ERROR("100003", "参数异常", false),
-//    QUERY_HYSTRIX_ERROR("200203", "从基础服务获取用户权限异常熔断", false),
-    QUERY_CATEGORY_EXIST("999701","此分类已存在,禁止重复分类名称",false);
+    //    QUERY_HYSTRIX_ERROR("200203", "从基础服务获取用户权限异常熔断", false),
 
+    QUERY_CATEGORY_EXIST("999701", "此分类已存在,禁止重复分类名称", false);
 
 
     ResponseCode(String code, String msg, boolean success) {

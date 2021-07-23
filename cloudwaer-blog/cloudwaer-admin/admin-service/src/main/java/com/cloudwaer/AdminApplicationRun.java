@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+import java.util.List;
+
 /**
  * @ClassName AdminApplicationRun
  * @Description TODO
@@ -21,4 +23,6 @@ public class AdminApplicationRun {
     public static void main(String[] args) {
         SpringApplication.run(AdminApplicationRun.class, args);
     }
+
 }
+
